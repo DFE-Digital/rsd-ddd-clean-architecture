@@ -1,0 +1,41 @@
+using MediatR;
+using Microsoft.Extensions.Configuration;
+using System.Reflection;
+using DfE.DomainDrivenDesignTemplate.Application.Common.Behaviours;
+using FluentValidation;
+using DfE.DomainDrivenDesignTemplate.Application.MappingProfiles;
+using DfE.DomainDrivenDesignTemplate.Application.BackgroundServices;
+using DfE.DomainDrivenDesignTemplate.Application.Common.Interfaces;
+
+namespace Microsoft.Extensions.DependencyInjection
+{
+    public static class ApplicationServiceCollectionExtensions
+    {
+        public static IServiceCollection AddApplicationDependencyGroup(
+            this IServiceCollection services, IConfiguration config)
+        {
+            var performanceLoggingEnabled = config.GetValue<bool>("Features:PerformanceLoggingEnabled");
+
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
+            services.AddMediatR(cfg =>
+            {
+                cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+                cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(UnhandledExceptionBehaviour<,>));
+                cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
+
+                if (performanceLoggingEnabled)
+                {
+                    cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(PerformanceBehaviour<,>));
+                }
+            });
+
+            services.AddAutoMapper(typeof(SchoolProfile));
+
+            services.AddSingleton<IBackgroundServiceFactory, BackgroundServiceFactory>();
+            services.AddHostedService<BackgroundServiceFactory>();
+
+            return services;
+        }
+    }
+}
