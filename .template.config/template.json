@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "DfE - RSD Common Architecture Team",
+  "classifications": [
+    "Web",
+    "ASP.NET",
+    "Clean Architecture"
+  ],
+  "name": "Domain Driven Design / Clean Architecture Web API",
+  "description": "This template is a .NET solution for a Web API following Domain-Driven Design (DDD) and Clean Architecture principles.",
+  "identity": "RSD.DomainDrivenDesign.CleanArchitecture.WebApi.CSharp",
+  "groupIdentity": "RSD.DomainDrivenDesign.CleanArchitecture",
+  "shortName": "rsd-ddd-ca-webapi",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "DfE.DomainDrivenDesignTemplate",
+  "preferNameDirectory": true,
+  "symbols": {
+    "ProjectName": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "DfE.DomainDrivenDesignTemplate",
+      "replaces": "DfE.DomainDrivenDesignTemplate",
+      "fileRename": "DfE.DomainDrivenDesignTemplate"
+    },
+    "SolutionName": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "DfE.DomainDrivenDesignTemplate",
+      "replaces": "DfE.DomainDrivenDesignTemplate"
+    }
+  },
+  "sources": [
+    {
+      "source": "./",
+      "target": "./",
+      "exclude": [
+        ".azure/**/*",
+        ".template.config/**/*",
+        "templates/**/*",
+        "**/*.filelist",
+        "**/*.user",
+        "**/*.lock.json",
+        "*.nuspec"
+      ],
+      "rename": {
+        "README-template.md": "README.md"
+      }
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<SkipBuild>true</SkipBuild>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="appsettings.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="BenchmarkDotNet" Version="0.14.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="appsettings.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\DfE.DomainDrivenDesignTemplate.Domain\DfE.DomainDrivenDesignTemplate.Domain.csproj" />
+	  <ProjectReference Include="..\Tests\DfE.DomainDrivenDesignTemplate.Tests.Common\DfE.DomainDrivenDesignTemplate.Tests.Common.csproj" />
+	</ItemGroup>
+
+</Project>
