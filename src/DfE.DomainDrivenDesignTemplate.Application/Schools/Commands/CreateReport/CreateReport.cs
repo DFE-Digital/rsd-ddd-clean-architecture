@@ -3,7 +3,7 @@ using DfE.DomainDrivenDesignTemplate.Application.Services.BackgroundServices.Eve
 using DfE.DomainDrivenDesignTemplate.Application.Services.BackgroundServices.Tasks;
 using MediatR;
 
-namespace DfE.DomainDrivenDesignTemplate.Application.Schools.Commands.CreateSchool
+namespace DfE.DomainDrivenDesignTemplate.Application.Schools.Commands.CreateReport
 {
     /// <summary>
     /// An example of enqueuing a background task

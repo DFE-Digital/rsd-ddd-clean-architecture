@@ -39,19 +39,20 @@ This manual is intended to provide a comprehensive overview of the architecture,
 Table of Contents
 -----------------
 
-*   [Architecture Overview](#architecture-overview)
-*   [Project Structure and Folder Organization](#project-structure-and-folder-organization)
-*   [Responsibilities of Each Layer](#responsibilities-of-each-layer)
-*   [Business Logic Flow](#business-logic-flow)
-*   [Value Objects and Strongly Typed IDs](#value-objects-and-strongly-typed-ids)
-*   [Validators](#validators)
-*   [Code-First Approach and Design-Time DbContext Factory](#code-first-approach-and-design-time-dbcontext-factory)
-*   [Generic Repository Pattern](#generic-repository-pattern)
-*   [Caching Strategy](#caching-strategy)
-*   [Authentication and Authorization](#authentication-and-authorization)
-*   [NSwag and Strongly Typed Client Generation](#nswag-and-strongly-typed-client-generation)
-*   [Testing Strategy](#testing-strategy)
-*   [Integration Testing and End-to-End (E2E) Testing](#integration-testing-and-end-to-end-e2e-testing)
+*   [Architecture Overview](#1-architecture-overview)
+*   [Project Structure and Folder Organization](#2-project-structure-and-folder-organization)
+*   [Responsibilities of Each Layer](#3-responsibilities-of-each-layer)
+*   [Business Logic Flow](#4-business-logic-flow)
+*   [Value Objects and Strongly Typed IDs](#5-value-objects-and-strongly-typed-ids)
+*   [Validators](#6-validators)
+*   [Code-First Approach and Design-Time DbContext Factory](#7-code-first-approach-and-design-time-dbcontext-factory)
+*   [Generic Repository Pattern](#8-generic-repository-pattern)
+*   [Caching Strategy](#9-caching-strategy)
+*   [Authentication and Authorization](#10-authentication-and-authorization)
+*   [NSwag and Strongly Typed Client Generation](#11-nswag-and-strongly-typed-client-generation)
+*   [Background Task Factory and Event-Driven Notifications](#12-background-task-factory-and-event-driven-notifications)
+*   [Testing Strategy](#13-testing-strategy)
+*   [Integration Testing and End-to-End (E2E) Testing](#14-integration-testing-and-end-to-end-e2e-testing)
 
 1\. Architecture Overview
 -------------------------
@@ -225,7 +226,63 @@ The API layer integrates with authentication and authorization mechanisms:
     *   In the CI/CD pipeline, the `API.Client` project is packaged, versioned, and published to the NuGet feed using the `build-and-push-package-template.yml` file located in the `.github` folder.
     *   **Note**: For details on the implementation of this process, please consult your DevOps engineer or Farshad for guidance.
 
-12\. Testing Strategy
+12\. Background Task Factory and Event-Driven Notifications
+-----------------------------------------------------------
+
+The application template includes a **Background Task Factory** to handle long-running operations asynchronously. This approach ensures that tasks, such as generating files or processing data, do not block the main execution flow. Once these background tasks are completed, event-driven notifications can trigger additional actions, such as sending emails or logging results.
+
+*   **Background Task Factory**:
+    *   The background task factory allows tasks to be queued up and processed one after the other. Multiple tasks can be enqueued from different sessions, and they will be executed sequentially, ensuring that resources are managed efficiently.
+    *   This feature is beneficial for scenarios where long-running tasks, such as file generation or data processing, should not block the user from continuing to interact with the application. Tasks are processed in the background while the user is notified when they are completed.
+    *   Here's an example of using the factory to enqueue a task:
+        
+            
+            _backgroundServiceFactory.EnqueueTask(async () =>
+            {
+                // Perform task logic here
+                var result = await CreateReportExampleTask(data);
+                
+                // Publish event when task completes
+                await _mediator.Publish(new CreateReportExampleTaskCompletedEvent(taskName, result));
+            });
+            
+        
+    *   This ensures the task runs asynchronously, and when the task completes, a Mediatr notification (like `CreateReportExampleTaskCompletedEvent`) is published to trigger further actions (e.g., sending an email).
+*   **Event-Driven Notifications**:
+    *   Once a background task completes, Mediatr events are used to trigger further actions. This event-driven approach decouples the completion of the task from the action that follows.
+    *   The `EnqueueTask` method supports passing in a generic event notification that can include the result of the background task. This allows for flexibility in notifying different parts of the system about the task completion.
+    *   Example of a notification event:
+        
+            
+            public class CreateReportExampleTaskCompletedEvent : INotification
+            {
+                public string TaskName { get; }
+                public string Message { get; }
+            
+                public CsvGeneratedNotification(string taskName, string message)
+                {
+                    TaskName = taskName;
+                    Message = message;
+                }
+            }
+            
+        
+    *   The event handler listens for this event and performs any necessary follow-up action, such as sending an email to the user:
+        
+            
+            public class SchoolCreatedEventHandler : INotificationHandler
+            {
+                public async Task Handle(SchoolCreatedEvent notification, CancellationToken cancellationToken)
+                {
+                    logger.LogInformation("Test logic for SchoolCreatedEvent executed.");
+                    return Task.CompletedTask;
+                }
+            }
+            
+        
+    *   This event-driven model improves the separation of concerns, keeps the code modular, and ensures that actions are triggered only when necessary.
+
+13\. Testing Strategy
 ---------------------
 
 The project includes a comprehensive testing strategy:
@@ -285,7 +342,7 @@ The project includes a comprehensive testing strategy:
     *   **Reusability**: By using custom attributes to apply these customizations, the project ensures consistency in test setups and encourages reusability of customization logic. This approach allows tests to be written more efficiently while ensuring that all necessary dependencies are correctly configured.
 
 
-13\. Integration Testing and End-to-End (E2E) Testing
+14\. Integration Testing and End-to-End (E2E) Testing
 -----------------------------------------------------
 
 Integration tests are designed to test the complete flow from API request to database interaction:

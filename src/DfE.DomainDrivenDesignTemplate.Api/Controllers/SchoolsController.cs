@@ -1,5 +1,6 @@
 using Asp.Versioning;
 using DfE.DomainDrivenDesignTemplate.Application.Common.Models;
+using DfE.DomainDrivenDesignTemplate.Application.Schools.Commands.CreateReport;
 using DfE.DomainDrivenDesignTemplate.Application.Schools.Commands.CreateSchool;
 using DfE.DomainDrivenDesignTemplate.Application.Schools.Queries.GetPrincipalBySchool;
 using DfE.DomainDrivenDesignTemplate.Application.Schools.Queries.GetPrincipalsBySchools;
