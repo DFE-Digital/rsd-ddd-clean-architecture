@@ -1,9 +1,9 @@
-﻿using DfE.DomainDrivenDesignTemplate.Application.Common.Interfaces;
+﻿using System.Collections.Concurrent;
+using DfE.DomainDrivenDesignTemplate.Application.Common.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Hosting;
-using System.Collections.Concurrent;
 
-namespace DfE.DomainDrivenDesignTemplate.Application.BackgroundServices
+namespace DfE.DomainDrivenDesignTemplate.Application.Services.BackgroundServices
 {
     public class BackgroundServiceFactory(IMediator mediator) : BackgroundService, IBackgroundServiceFactory
     {

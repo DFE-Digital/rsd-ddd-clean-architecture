@@ -5,6 +5,11 @@ using DfE.DomainDrivenDesignTemplate.Domain.Entities.Schools;
 
 namespace DfE.DomainDrivenDesignTemplate.Infrastructure.Repositories
 {
+    /// <summary>
+    /// Please note this is an example of a specific repository for the aggregate root
+    /// the following methods and queries can be achieved by Generic Repository's Find and Fetch methods 
+    /// </summary>
+    /// <param name="context"></param>
     public class SchoolRepository(SclContext context) : ISchoolRepository
     {
         public async Task<School?> GetPrincipalBySchoolAsync(string schoolName, CancellationToken cancellationToken)

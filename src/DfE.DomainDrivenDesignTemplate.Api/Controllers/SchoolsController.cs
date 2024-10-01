@@ -40,7 +40,7 @@ namespace DfE.DomainDrivenDesignTemplate.Api.Controllers
         /// <param name="request">The request.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         [Authorize(Policy = "API.Read")]
-        [HttpPost("principal")]
+        [HttpPost("principals")]
         [SwaggerResponse(200, "A collection of Principal objects.", typeof(IEnumerable<Principal>))]
         [SwaggerResponse(400, "School names cannot be null or empty.")]
         public async Task<IActionResult> GetPrincipalsBySchoolsAsync([FromBody] GetPrincipalsBySchoolsQuery request, CancellationToken cancellationToken)
@@ -55,7 +55,6 @@ namespace DfE.DomainDrivenDesignTemplate.Api.Controllers
         /// </summary>
         /// <param name="request">The request.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
-        /// <returns></returns>
         [Authorize(Policy = "API.Write")]
         [HttpPost]
         [SwaggerResponse(201, "School created successfully.", typeof(SchoolId))]
@@ -71,9 +70,8 @@ namespace DfE.DomainDrivenDesignTemplate.Api.Controllers
         /// </summary>
         /// <param name="request">The request.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
-        /// <returns></returns>
         [HttpPost("createReport")]
-        [SwaggerResponse(200, "Task queued successfully.", typeof(SchoolId))]
+        [SwaggerResponse(200, "Task queued successfully.", typeof(bool))]
         [SwaggerResponse(400, "Invalid request data.")]
         public async Task<IActionResult> CreateReportAsync([FromBody] CreateReportCommand request, CancellationToken cancellationToken)
         {

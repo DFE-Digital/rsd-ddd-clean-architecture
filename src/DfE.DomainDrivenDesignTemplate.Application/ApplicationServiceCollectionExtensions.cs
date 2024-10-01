@@ -4,8 +4,8 @@ using System.Reflection;
 using DfE.DomainDrivenDesignTemplate.Application.Common.Behaviours;
 using FluentValidation;
 using DfE.DomainDrivenDesignTemplate.Application.MappingProfiles;
-using DfE.DomainDrivenDesignTemplate.Application.BackgroundServices;
 using DfE.DomainDrivenDesignTemplate.Application.Common.Interfaces;
+using DfE.DomainDrivenDesignTemplate.Application.Services.BackgroundServices;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
