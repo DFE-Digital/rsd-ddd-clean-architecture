@@ -45,7 +45,7 @@
         }
       }
     },
-    "/v1/Schools/principal": {
+    "/v1/Schools/principals": {
       "post": {
         "tags": [
           "Schools"
@@ -148,7 +148,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SchoolId"
+                  "type": "boolean"
                 }
               }
             }

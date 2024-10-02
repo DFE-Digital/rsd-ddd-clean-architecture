@@ -1,8 +1,8 @@
 using AutoMapper;
+using DfE.CoreLibs.Caching.Helpers;
+using DfE.CoreLibs.Caching.Interfaces;
 using DfE.DomainDrivenDesignTemplate.Application.Common.Models;
 using MediatR;
-using DfE.DomainDrivenDesignTemplate.Utils.Caching;
-using DfE.DomainDrivenDesignTemplate.Domain.Interfaces.Caching;
 using DfE.DomainDrivenDesignTemplate.Domain.Interfaces.Repositories;
 
 namespace DfE.DomainDrivenDesignTemplate.Application.Schools.Queries.GetPrincipalBySchool

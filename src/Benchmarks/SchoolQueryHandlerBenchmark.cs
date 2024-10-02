@@ -6,13 +6,10 @@ using DfE.DomainDrivenDesignTemplate.Application.MappingProfiles;
 using DfE.DomainDrivenDesignTemplate.Application.Schools.Queries.GetPrincipalBySchool;
 using DfE.DomainDrivenDesignTemplate.Application.Schools.Queries.GetPrincipalsBySchools;
 using DfE.DomainDrivenDesignTemplate.Domain.Entities.Schools;
-using DfE.DomainDrivenDesignTemplate.Domain.Interfaces.Caching;
 using DfE.DomainDrivenDesignTemplate.Domain.Interfaces.Repositories;
 using DfE.DomainDrivenDesignTemplate.Domain.ValueObjects;
-using DfE.DomainDrivenDesignTemplate.Infrastructure.Caching;
 using DfE.DomainDrivenDesignTemplate.Infrastructure.Database;
 using DfE.DomainDrivenDesignTemplate.Infrastructure.Repositories;
-using DfE.DomainDrivenDesignTemplate.Utils.Caching;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Data.Sqlite;
@@ -23,6 +20,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Data.Common;
+using DfE.CoreLibs.Caching.Helpers;
+using DfE.CoreLibs.Caching.Interfaces;
+using DfE.CoreLibs.Caching.Services;
+using DfE.CoreLibs.Caching.Settings;
 
 namespace DfE.DomainDrivenDesignTemplate.Benchmarks
 {

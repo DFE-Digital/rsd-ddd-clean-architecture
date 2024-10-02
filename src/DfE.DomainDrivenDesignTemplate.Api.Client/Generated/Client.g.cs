@@ -213,8 +213,8 @@ namespace DfE.DomainDrivenDesignTemplate.Client
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                     if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
-                    // Operation Path: "v1/Schools/principal"
-                    urlBuilder_.Append("v1/Schools/principal");
+                    // Operation Path: "v1/Schools/principals"
+                    urlBuilder_.Append("v1/Schools/principals");
 
                     PrepareRequest(client_, request_, urlBuilder_);
 
@@ -379,7 +379,7 @@ namespace DfE.DomainDrivenDesignTemplate.Client
         /// <param name="request">The request.</param>
         /// <returns>Task queued successfully.</returns>
         /// <exception cref="PersonsApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<SchoolId> CreateReportAsync(CreateReportCommand request)
+        public virtual System.Threading.Tasks.Task<bool> CreateReportAsync(CreateReportCommand request)
         {
             return CreateReportAsync(request, System.Threading.CancellationToken.None);
         }
@@ -391,7 +391,7 @@ namespace DfE.DomainDrivenDesignTemplate.Client
         /// <param name="request">The request.</param>
         /// <returns>Task queued successfully.</returns>
         /// <exception cref="PersonsApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<SchoolId> CreateReportAsync(CreateReportCommand request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<bool> CreateReportAsync(CreateReportCommand request, System.Threading.CancellationToken cancellationToken)
         {
             if (request == null)
                 throw new System.ArgumentNullException("request");
@@ -439,7 +439,7 @@ namespace DfE.DomainDrivenDesignTemplate.Client
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<SchoolId>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<bool>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new PersonsApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);

@@ -1,9 +1,9 @@
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using DfE.CoreLibs.Caching.Helpers;
+using DfE.CoreLibs.Caching.Interfaces;
 using DfE.DomainDrivenDesignTemplate.Application.Common.Models;
-using DfE.DomainDrivenDesignTemplate.Domain.Interfaces.Caching;
 using DfE.DomainDrivenDesignTemplate.Domain.Interfaces.Repositories;
-using DfE.DomainDrivenDesignTemplate.Utils.Caching;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 

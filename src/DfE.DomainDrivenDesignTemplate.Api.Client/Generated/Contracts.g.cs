@@ -82,7 +82,7 @@ namespace DfE.DomainDrivenDesignTemplate.Client.Contracts
         /// <param name="request">The request.</param>
         /// <returns>Task queued successfully.</returns>
         /// <exception cref="PersonsApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<SchoolId> CreateReportAsync(CreateReportCommand request);
+        System.Threading.Tasks.Task<bool> CreateReportAsync(CreateReportCommand request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -91,7 +91,7 @@ namespace DfE.DomainDrivenDesignTemplate.Client.Contracts
         /// <param name="request">The request.</param>
         /// <returns>Task queued successfully.</returns>
         /// <exception cref="PersonsApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<SchoolId> CreateReportAsync(CreateReportCommand request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<bool> CreateReportAsync(CreateReportCommand request, System.Threading.CancellationToken cancellationToken);
 
     }
 

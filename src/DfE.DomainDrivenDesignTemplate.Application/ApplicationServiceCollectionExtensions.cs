@@ -1,11 +1,9 @@
+using DfE.DomainDrivenDesignTemplate.Application.Common.Behaviours;
+using DfE.DomainDrivenDesignTemplate.Application.MappingProfiles;
+using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using System.Reflection;
-using DfE.DomainDrivenDesignTemplate.Application.Common.Behaviours;
-using FluentValidation;
-using DfE.DomainDrivenDesignTemplate.Application.MappingProfiles;
-using DfE.DomainDrivenDesignTemplate.Application.Common.Interfaces;
-using DfE.DomainDrivenDesignTemplate.Application.Services.BackgroundServices;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -32,8 +30,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.AddAutoMapper(typeof(SchoolProfile));
 
-            services.AddSingleton<IBackgroundServiceFactory, BackgroundServiceFactory>();
-            services.AddHostedService<BackgroundServiceFactory>();
+            services.AddBackgroundService();
 
             return services;
         }

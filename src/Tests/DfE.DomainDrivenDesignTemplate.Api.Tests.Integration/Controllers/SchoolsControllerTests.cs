@@ -1,10 +1,10 @@
+using DfE.CoreLibs.Testing.AutoFixture.Attributes;
+using DfE.CoreLibs.Testing.Mocks.WebApplicationFactory;
 using DfE.DomainDrivenDesignTemplate.Client.Contracts;
 using DfE.DomainDrivenDesignTemplate.Infrastructure.Database;
-using DfE.DomainDrivenDesignTemplate.Tests.Common.Attributes;
 using DfE.DomainDrivenDesignTemplate.Tests.Common.Customizations;
 using DfE.DomainDrivenDesignTemplate.Tests.Common.Customizations.Commands;
 using DfE.DomainDrivenDesignTemplate.Tests.Common.Customizations.Models;
-using DfE.DomainDrivenDesignTemplate.Tests.Common.Mocks;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
 using System.Security.Claims;

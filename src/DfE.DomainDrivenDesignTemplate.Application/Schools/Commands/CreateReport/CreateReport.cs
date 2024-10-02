@@ -1,4 +1,4 @@
-using DfE.DomainDrivenDesignTemplate.Application.Common.Interfaces;
+using DfE.CoreLibs.BackgroundService.Interfaces;
 using DfE.DomainDrivenDesignTemplate.Application.Services.BackgroundServices.Events;
 using DfE.DomainDrivenDesignTemplate.Application.Services.BackgroundServices.Tasks;
 using MediatR;

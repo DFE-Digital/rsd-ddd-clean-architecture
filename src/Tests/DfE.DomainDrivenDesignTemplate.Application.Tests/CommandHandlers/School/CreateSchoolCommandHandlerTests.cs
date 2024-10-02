@@ -1,7 +1,7 @@
 using AutoFixture.Xunit2;
+using DfE.CoreLibs.Testing.AutoFixture.Attributes;
 using DfE.DomainDrivenDesignTemplate.Application.Schools.Commands.CreateSchool;
 using DfE.DomainDrivenDesignTemplate.Domain.Interfaces.Repositories;
-using DfE.DomainDrivenDesignTemplate.Tests.Common.Attributes;
 using DfE.DomainDrivenDesignTemplate.Tests.Common.Customizations.Commands;
 using DfE.DomainDrivenDesignTemplate.Tests.Common.Customizations.Entities;
 using DfE.DomainDrivenDesignTemplate.Tests.Common.Customizations.Models;

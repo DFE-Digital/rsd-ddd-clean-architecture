@@ -1,6 +1,6 @@
+using DfE.CoreLibs.Testing.AutoFixture.Attributes;
 using DfE.DomainDrivenDesignTemplate.Domain.Entities.Schools;
 using DfE.DomainDrivenDesignTemplate.Domain.ValueObjects;
-using DfE.DomainDrivenDesignTemplate.Tests.Common.Attributes;
 
 namespace DfE.DomainDrivenDesignTemplate.Domain.Tests.Aggregates
 {

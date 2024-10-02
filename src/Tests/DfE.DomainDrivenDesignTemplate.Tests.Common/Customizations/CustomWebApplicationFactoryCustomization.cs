@@ -1,11 +1,14 @@
-using System.Security.Claims;
 using AutoFixture;
+using DfE.CoreLibs.Testing.Mocks.Authentication;
+using DfE.CoreLibs.Testing.Mocks.WebApplicationFactory;
 using DfE.DomainDrivenDesignTemplate.Api.Client.Extensions;
-using DfE.DomainDrivenDesignTemplate.Client.Contracts;
 using DfE.DomainDrivenDesignTemplate.Client;
-using DfE.DomainDrivenDesignTemplate.Tests.Common.Mocks;
+using DfE.DomainDrivenDesignTemplate.Client.Contracts;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Net.Http.Headers;
+using System.Security.Claims;
 
 namespace DfE.DomainDrivenDesignTemplate.Tests.Common.Customizations
 {
@@ -17,7 +20,25 @@ namespace DfE.DomainDrivenDesignTemplate.Tests.Common.Customizations
             fixture.Customize<CustomWebApplicationFactory<TProgram>>(composer => composer.FromFactory(() =>
             {
 
-                var factory = new CustomWebApplicationFactory<TProgram>(); 
+                var factory = new CustomWebApplicationFactory<TProgram>()
+                {
+                    ExternalServicesConfiguration = services =>
+                    {
+                        services.PostConfigure<AuthenticationOptions>(options =>
+                        {
+                            options.DefaultAuthenticateScheme = "TestScheme";
+                            options.DefaultChallengeScheme = "TestScheme";
+                        });
+
+                        services.AddAuthentication("TestScheme")
+                            .AddScheme<AuthenticationSchemeOptions, MockJwtBearerHandler>("TestScheme", options => { });
+                    },
+                    ExternalHttpClientConfiguration = client =>
+                    {
+                        client.DefaultRequestHeaders.Authorization =
+                            new AuthenticationHeaderValue("Bearer", "external-mock-token");
+                    }
+                };
 
                 var client = factory.CreateClient();
 

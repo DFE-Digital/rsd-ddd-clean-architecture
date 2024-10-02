@@ -1,6 +1,6 @@
-using DfE.DomainDrivenDesignTemplate.Tests.Common.Attributes;
+using DfE.CoreLibs.Testing.AutoFixture.Attributes;
+using DfE.CoreLibs.Testing.Mocks.WebApplicationFactory;
 using DfE.DomainDrivenDesignTemplate.Tests.Common.Customizations;
-using DfE.DomainDrivenDesignTemplate.Tests.Common.Mocks;
 using System.Net;
 
 namespace DfE.DomainDrivenDesignTemplate.Api.Tests.Integration.OpenApiTests;

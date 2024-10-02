@@ -1,14 +1,17 @@
 using AutoFixture;
+using DfE.CoreLibs.Testing.Mocks.Authentication;
+using DfE.CoreLibs.Testing.Mocks.WebApplicationFactory;
 using DfE.DomainDrivenDesignTemplate.Api.Client.Extensions;
 using DfE.DomainDrivenDesignTemplate.Client;
 using DfE.DomainDrivenDesignTemplate.Client.Contracts;
 using DfE.DomainDrivenDesignTemplate.Domain.Entities.Schools;
 using DfE.DomainDrivenDesignTemplate.Domain.ValueObjects;
 using DfE.DomainDrivenDesignTemplate.Infrastructure.Database;
-using DfE.DomainDrivenDesignTemplate.Tests.Common.Mocks;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 using SchoolId = DfE.DomainDrivenDesignTemplate.Domain.ValueObjects.SchoolId;
 
@@ -25,9 +28,25 @@ namespace DfE.DomainDrivenDesignTemplate.Tests.Common.Customizations
             fixture.Customize<CustomWebApplicationDbContextFactory<TProgram, TDbContext>>(composer => composer.FromFactory(() =>
             {
 
-                var factory = new CustomWebApplicationDbContextFactory<TProgram, TDbContext>();
+                var factory = new CustomWebApplicationDbContextFactory<TProgram, TDbContext>()
+                {
+                    SeedData = SeedAction ?? DefaultSeedData,
+                    ExternalServicesConfiguration = services =>
+                    {
+                        services.PostConfigure<AuthenticationOptions>(options =>
+                        {
+                            options.DefaultAuthenticateScheme = "TestScheme";
+                            options.DefaultChallengeScheme = "TestScheme";
+                        });
 
-                factory.SeedData = SeedAction ?? DefaultSeedData;
+                        services.AddAuthentication("TestScheme")
+                            .AddScheme<AuthenticationSchemeOptions, MockJwtBearerHandler>("TestScheme", options => { });
+                    },
+                    ExternalHttpClientConfiguration = client =>
+                    {
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "external-mock-token");
+                    }
+                };
 
                 var client = factory.CreateClient();
 

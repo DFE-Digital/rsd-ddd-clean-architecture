@@ -1,14 +1,15 @@
 using AutoFixture;
 using AutoFixture.Xunit2;
+using DfE.CoreLibs.Caching.Helpers;
+using DfE.CoreLibs.Caching.Interfaces;
+using DfE.CoreLibs.Testing.AutoFixture.Attributes;
+using DfE.CoreLibs.Testing.AutoFixture.Customizations;
 using DfE.DomainDrivenDesignTemplate.Application.Common.Models;
+using DfE.DomainDrivenDesignTemplate.Application.MappingProfiles;
 using DfE.DomainDrivenDesignTemplate.Application.Schools.Queries.GetPrincipalBySchool;
-using DfE.DomainDrivenDesignTemplate.Domain.Interfaces.Caching;
 using DfE.DomainDrivenDesignTemplate.Domain.Interfaces.Repositories;
-using DfE.DomainDrivenDesignTemplate.Tests.Common.Attributes;
-using DfE.DomainDrivenDesignTemplate.Tests.Common.Customizations;
 using DfE.DomainDrivenDesignTemplate.Tests.Common.Customizations.Entities;
 using DfE.DomainDrivenDesignTemplate.Tests.Common.Customizations.Models;
-using DfE.DomainDrivenDesignTemplate.Utils.Caching;
 using NSubstitute;
 
 namespace DfE.DomainDrivenDesignTemplate.Application.Tests.QueryHandlers.School
@@ -19,7 +20,7 @@ namespace DfE.DomainDrivenDesignTemplate.Application.Tests.QueryHandlers.School
         [CustomAutoData(
             typeof(PrincipalCustomization),
             typeof(SchoolCustomization),
-            typeof(AutoMapperCustomization))]
+            typeof(AutoMapperCustomization<SchoolProfile>))]
         public async Task Handle_ShouldReturnMemberOfParliament_WhenSchoolExists(
             [Frozen] ISchoolRepository mockSchoolRepository,
             [Frozen] ICacheService mockCacheService,

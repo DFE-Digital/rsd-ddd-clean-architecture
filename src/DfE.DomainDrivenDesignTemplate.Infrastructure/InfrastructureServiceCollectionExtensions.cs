@@ -1,6 +1,4 @@
-using DfE.DomainDrivenDesignTemplate.Domain.Interfaces.Caching;
 using DfE.DomainDrivenDesignTemplate.Domain.Interfaces.Repositories;
-using DfE.DomainDrivenDesignTemplate.Infrastructure.Caching;
 using DfE.DomainDrivenDesignTemplate.Infrastructure.Database;
 using DfE.DomainDrivenDesignTemplate.Infrastructure.Repositories;
 using DfE.DomainDrivenDesignTemplate.Infrastructure.Security.Authorization;
@@ -19,8 +17,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped(typeof(ISclRepository<>), typeof(SclRepository<>));
 
             //Cache service
-            services.Configure<CacheSettings>(config.GetSection("CacheSettings"));
-            services.AddSingleton<ICacheService, MemoryCacheService>();
+            services.AddServiceCaching(config);
 
             //Db
             var connectionString = config.GetConnectionString("DefaultConnection");
