@@ -10,8 +10,8 @@ namespace DfE.DomainDrivenDesignTemplate.Application.MappingProfiles
         {
             CreateMap<School, Principal>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.PrincipalId.Value))
-                .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => src.NameDetails.NameListAs.Split(",", StringSplitOptions.None)[1].Trim()))
-                .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.NameDetails.NameListAs.Split(",", StringSplitOptions.None)[0].Trim()))
+                .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => src.NameDetails.NameListAs!.Split(",", StringSplitOptions.None)[1].Trim()))
+                .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.NameDetails.NameListAs!.Split(",", StringSplitOptions.None)[0].Trim()))
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.PrincipalDetails.Email))
                 .ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.NameDetails.NameDisplayAs))
                 .ForMember(dest => dest.DisplayNameWithTitle, opt => opt.MapFrom(src => src.NameDetails.NameFullTitle))

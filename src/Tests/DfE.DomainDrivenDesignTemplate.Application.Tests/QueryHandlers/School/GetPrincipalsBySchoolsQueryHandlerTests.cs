@@ -34,7 +34,7 @@ namespace DfE.DomainDrivenDesignTemplate.Application.Tests.QueryHandlers.School
             var expectedMps = schools.Select(school =>
                 fixture.Customize(new PrincipalCustomization()
                 {
-                    FirstName = school.NameDetails.NameListAs.Split(",")[1].Trim(),
+                    FirstName = school.NameDetails.NameListAs!.Split(",")[1].Trim(),
                     LastName = school.NameDetails.NameListAs.Split(",")[0].Trim(),
                     SchoolName = school.SchoolName,
                 }).Create<Principal>()).ToList();
