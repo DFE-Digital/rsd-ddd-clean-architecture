@@ -33,13 +33,11 @@ After running this command, a new project based on the template will be generate
 
 ### Step 4 (optional): Dockerfile
 
-If you want to use the template Dockerfile for building your .NET app then you can must update the `PROJECT_NAME` and `REPO_ORIGIN` build arguments in the file
+If you want to use the template Dockerfile for building your .NET app then you can must update the `REPO_ORIGIN` build arguments in the file
 
 **Dockerfile** - Option 1
 
 ```diff
--ARG PROJECT_NAME="DfE.DomainDrivenDesignTemplate.Api"
-+ARG PROJECT_NAME="My.NewProject.Api"
 -ARG REPO_ORIGIN="https://github.com/DFE-Digital/rsd-ddd-clean-architecture"
 +ARG REPO_ORIGIN="https://github.com/DFE-Digital/My.NewProject.Api"
 ```
@@ -47,11 +45,8 @@ If you want to use the template Dockerfile for building your .NET app then you c
 **Dockerfile** - Option 2
 
 ```shell
-docker build \
-    --build-arg PROJECT_NAME="My.NewProject.Api" \
-    --build-arg REPO_ORIGIN="https://github.com/DFE-Digital/My.NewProject.Api" .
+docker build --build-arg REPO_ORIGIN="https://github.com/DFE-Digital/My.NewProject.Api" .
 ```
-
 
 User Manual
 ----------------------------------------------
