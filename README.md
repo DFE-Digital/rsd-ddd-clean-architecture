@@ -31,6 +31,28 @@ Navigate to the directory where you want to create your new project. Once you're
 
 After running this command, a new project based on the template will be generated, complete with the folder structure, configurations, and code necessary to start developing your application.
 
+### Step 4 (optional): Dockerfile
+
+If you want to use the template Dockerfile for building your .NET app then you can must update the `PROJECT_NAME` and `REPO_ORIGIN` build arguments in the file
+
+**Dockerfile** - Option 1
+
+```diff
+-ARG PROJECT_NAME="DfE.DomainDrivenDesignTemplate.Api"
++ARG PROJECT_NAME="My.NewProject.Api"
+-ARG REPO_ORIGIN="https://github.com/DFE-Digital/rsd-ddd-clean-architecture"
++ARG REPO_ORIGIN="https://github.com/DFE-Digital/My.NewProject.Api"
+```
+
+**Dockerfile** - Option 2
+
+```shell
+docker build \
+    --build-arg PROJECT_NAME="My.NewProject.Api" \
+    --build-arg REPO_ORIGIN="https://github.com/DFE-Digital/My.NewProject.Api" .
+```
+
+
 User Manual
 ----------------------------------------------
 
@@ -199,16 +221,16 @@ The API layer integrates with authentication and authorization mechanisms:
 *   **Configuration of Roles and Claims**:
     *   Roles and claims expected from Azure AD can be configured in the `appsettings.json` file. This allows fine-grained control over who can access specific API endpoints.
     *   The configuration might look like this:
-        
-            
+
+
             "Authorization": {
                 "Roles": [
                     "API.Read",
                     "API.Write"
                 ]
             }
-            
-        
+
+
     *   Using the `[Authorize(Policy = "API.Write")]` attribute on a controller or action ensures that only users with the `API.Write` role can execute the action. This policy-based authorization integrates seamlessly with Azure AD roles and claims, enforcing security requirements directly at the API level.
 
 11\. NSwag and Strongly Typed Client Generation
@@ -235,41 +257,41 @@ The application template includes a **Background Task Factory** to handle long-r
     *   The background task factory allows tasks to be queued up and processed one after the other. Multiple tasks can be enqueued from different sessions, and they will be executed sequentially, ensuring that resources are managed efficiently.
     *   This feature is beneficial for scenarios where long-running tasks, such as file generation or data processing, should not block the user from continuing to interact with the application. Tasks are processed in the background while the user is notified when they are completed.
     *   Here's an example of using the factory to enqueue a task:
-        
-            
+
+
             _backgroundServiceFactory.EnqueueTask(async () =>
             {
                 // Perform task logic here
                 var result = await CreateReportExampleTask(data);
-                
+
                 // Publish event when task completes
                 await _mediator.Publish(new CreateReportExampleTaskCompletedEvent(taskName, result));
             });
-            
-        
+
+
     *   This ensures the task runs asynchronously, and when the task completes, a Mediatr notification (like `CreateReportExampleTaskCompletedEvent`) is published to trigger further actions (e.g., sending an email).
 *   **Event-Driven Notifications**:
     *   Once a background task completes, Mediatr events are used to trigger further actions. This event-driven approach decouples the completion of the task from the action that follows.
     *   The `EnqueueTask` method supports passing in a generic event notification that can include the result of the background task. This allows for flexibility in notifying different parts of the system about the task completion.
     *   Example of a notification event:
-        
-            
+
+
             public class CreateReportExampleTaskCompletedEvent : INotification
             {
                 public string TaskName { get; }
                 public string Message { get; }
-            
+
                 public CsvGeneratedNotification(string taskName, string message)
                 {
                     TaskName = taskName;
                     Message = message;
                 }
             }
-            
-        
+
+
     *   The event handler listens for this event and performs any necessary follow-up action, such as sending an email to the user:
-        
-            
+
+
             public class SchoolCreatedEventHandler : INotificationHandler
             {
                 public async Task Handle(SchoolCreatedEvent notification, CancellationToken cancellationToken)
@@ -278,8 +300,8 @@ The application template includes a **Background Task Factory** to handle long-r
                     return Task.CompletedTask;
                 }
             }
-            
-        
+
+
     *   This event-driven model improves the separation of concerns, keeps the code modular, and ensures that actions are triggered only when necessary.
 
 13\. Testing Strategy
@@ -296,8 +318,8 @@ The project includes a comprehensive testing strategy:
     *   The project leverages AutoFixture to streamline the process of generating test data and objects, significantly reducing the amount of boilerplate code needed in tests.
     *   **Customizations**: Custom AutoFixture customizations are used to control how certain objects are created, ensuring that they meet specific requirements for tests.
     *   For example, the `SchoolCustomization` class is used to generate instances of the `School` entity with specific configurations:
-    
-            
+
+
     ```python
     public class SchoolCustomization : ICustomization
     {
@@ -326,8 +348,8 @@ The project includes a comprehensive testing strategy:
         }
     }
     ```
-                    
-    
+
+
     *   This customization can then be applied to test methods using the `[CustomAutoData(typeof(SchoolCustomization))]` attribute. This ensures that the `School` entity is generated according to the rules defined in the customization:
 
     ```python

@@ -1,12 +1,15 @@
-ARG ASPNET_SDK_TAG=8.0
+ARG PROJECT_NAME="DfE.DomainDrivenDesignTemplate.Api"
+ARG REPO_ORIGIN="https://github.com/DFE-Digital/rsd-ddd-clean-architecture"
+ARG DOTNET_SDK_TAG=8.0
 ARG DOTNET_EF_TAG=8.0.8
-ARG ASPNET_IMAGE_TAG=8.0-bookworm-slim
+ARG DOTNET_ASPNET_TAG=8.0-bookworm-slim
+ARG NUGET_SOURCE="https://nuget.pkg.github.com/DFE-Digital/index.json"
 ARG CI
 
 # ==============================================
 # Base SDK
 # ==============================================
-FROM "mcr.microsoft.com/dotnet/sdk:${ASPNET_SDK_TAG}" AS builder
+FROM "mcr.microsoft.com/dotnet/sdk:${DOTNET_SDK_TAG}" AS builder
 ENV CI=${CI}
 WORKDIR /build
 COPY . .
@@ -23,21 +26,21 @@ WORKDIR /build
 ENV PATH=$PATH:/root/.dotnet/tools
 RUN dotnet tool install --global dotnet-ef  --version ${DOTNET_EF_TAG}
 RUN mkdir /sql
-RUN dotnet ef migrations bundle -r linux-x64 --configuration Release -p DfE.DomainDrivenDesignTemplate.Api --no-build -o /sql/migratedb
+RUN dotnet ef migrations bundle -r linux-x64 --configuration Release -p ${PROJECT_NAME} --no-build -o /sql/migratedb
 
 # ==============================================
 # Entity Framework: Migration Runner
 # ==============================================
-FROM "mcr.microsoft.com/dotnet/aspnet:${ASPNET_IMAGE_TAG}" AS initcontainer
+FROM "mcr.microsoft.com/dotnet/aspnet:${DOTNET_ASPNET_TAG}" AS initcontainer
 WORKDIR /sql
 COPY --from=efbuilder /sql /sql
-COPY --from=builder /app/appsettings* /DfE.DomainDrivenDesignTemplate.Api/
+COPY --from=builder /app/appsettings* /${PROJECT_NAME}/
 
 # ==============================================
 # Application
 # ==============================================
-FROM "mcr.microsoft.com/dotnet/aspnet:${ASPNET_IMAGE_TAG}" AS final
-LABEL org.opencontainers.image.source=https://github.com/DFE-Digital/record-concerns-support-trusts
+FROM "mcr.microsoft.com/dotnet/aspnet:${DOTNET_ASPNET_TAG}" AS final
+LABEL org.opencontainers.image.source=${REPO_ORIGIN}
 ARG COMMIT_SHA
 COPY --from=builder /app /app
 COPY ./script/docker-entrypoint.sh /app/docker-entrypoint.sh
