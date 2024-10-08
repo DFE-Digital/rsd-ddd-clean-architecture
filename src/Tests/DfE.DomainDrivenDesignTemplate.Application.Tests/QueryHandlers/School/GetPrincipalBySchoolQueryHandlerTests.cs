@@ -23,7 +23,7 @@ namespace DfE.DomainDrivenDesignTemplate.Application.Tests.QueryHandlers.School
             typeof(AutoMapperCustomization<SchoolProfile>))]
         public async Task Handle_ShouldReturnMemberOfParliament_WhenSchoolExists(
             [Frozen] ISchoolRepository mockSchoolRepository,
-            [Frozen] ICacheService mockCacheService,
+            [Frozen] ICacheService<IMemoryCacheType> mockCacheService,
             GetPrincipalBySchoolQueryHandler handler,
             GetPrincipalBySchoolQuery query,
             Domain.Entities.Schools.School school,

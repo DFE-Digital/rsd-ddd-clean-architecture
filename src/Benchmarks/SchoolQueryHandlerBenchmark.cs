@@ -40,7 +40,7 @@ namespace DfE.DomainDrivenDesignTemplate.Benchmarks
         private IMediator? _mediator;
         private GetPrincipalsBySchoolsQuery? _query;
         private ISchoolRepository? _realRepository;
-        private ICacheService? _cacheService;
+        private ICacheService<IMemoryCacheType>? _cacheService;
         private IMapper? _mapper;
 
         [GlobalSetup]
@@ -68,11 +68,12 @@ namespace DfE.DomainDrivenDesignTemplate.Benchmarks
 
             var cacheSettings = Options.Create(new CacheSettings
             {
+                Memory = new MemoryCacheSettings() {
                 DefaultDurationInSeconds = 600, // 10 minutes
                 Durations = new Dictionary<string, int>
                 {
                     { nameof(GetPrincipalBySchoolQueryHandler), 300 } // 5 minutes
-                }
+                }}
             });
 
             var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());

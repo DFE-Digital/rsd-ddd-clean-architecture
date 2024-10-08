@@ -24,7 +24,7 @@ namespace DfE.DomainDrivenDesignTemplate.Application.Tests.QueryHandlers.School
             typeof(AutoMapperCustomization<SchoolProfile>))]
         public async Task Handle_ShouldReturnPrincipal_WhenSchoolExists(
             [Frozen] ISchoolRepository mockSchoolRepository,
-            [Frozen] ICacheService mockCacheService,
+            [Frozen] ICacheService<IMemoryCacheType> mockCacheService,
             GetPrincipalsBySchoolsQueryHandler handler,
             GetPrincipalsBySchoolsQuery query,
             List<Domain.Entities.Schools.School> schools,

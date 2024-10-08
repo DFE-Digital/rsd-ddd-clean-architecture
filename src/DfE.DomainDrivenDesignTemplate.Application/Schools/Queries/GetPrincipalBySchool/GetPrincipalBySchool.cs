@@ -12,7 +12,7 @@ namespace DfE.DomainDrivenDesignTemplate.Application.Schools.Queries.GetPrincipa
     public class GetPrincipalBySchoolQueryHandler(
         ISchoolRepository schoolRepository,
         IMapper mapper,
-        ICacheService cacheService)
+        ICacheService<IMemoryCacheType> cacheService)
         : IRequestHandler<GetPrincipalBySchoolQuery, Principal?>
     {
         public async Task<Principal?> Handle(GetPrincipalBySchoolQuery request, CancellationToken cancellationToken)

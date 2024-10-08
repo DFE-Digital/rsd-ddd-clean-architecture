@@ -14,7 +14,7 @@ namespace DfE.DomainDrivenDesignTemplate.Application.Schools.Queries.GetPrincipa
     public class GetPrincipalsBySchoolsQueryHandler(
         ISchoolRepository schoolRepository,
         IMapper mapper,
-        ICacheService cacheService)
+        ICacheService<IMemoryCacheType> cacheService)
         : IRequestHandler<GetPrincipalsBySchoolsQuery, List<Principal>>
     {
         public async Task<List<Principal>> Handle(GetPrincipalsBySchoolsQuery request, CancellationToken cancellationToken)
