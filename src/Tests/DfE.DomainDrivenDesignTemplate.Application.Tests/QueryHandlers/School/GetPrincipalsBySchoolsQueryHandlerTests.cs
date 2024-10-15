@@ -46,10 +46,10 @@ namespace DfE.DomainDrivenDesignTemplate.Application.Tests.QueryHandlers.School
             mockSchoolRepository.GetPrincipalsBySchoolsQueryable(query.SchoolNames)
                 .Returns(mock);
 
-            mockCacheService.GetOrAddAsync(cacheKey, Arg.Any<Func<Task<List<Principal>>>>(), Arg.Any<string>())
+            mockCacheService.GetOrAddAsync(cacheKey, Arg.Any<Func<Task<Result<List<Principal>>>>>(), Arg.Any<string>())
                 .Returns(callInfo =>
                 {
-                    var callback = callInfo.ArgAt<Func<Task<List<Principal>>>>(1);
+                    var callback = callInfo.ArgAt<Func<Task<Result<List<Principal>>>>>(1);
                     return callback();
                 });
 
@@ -58,12 +58,12 @@ namespace DfE.DomainDrivenDesignTemplate.Application.Tests.QueryHandlers.School
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal(expectedMps.Count, result.Count);
-            for (int i = 0; i < result.Count; i++)
+            Assert.Equal(expectedMps.Count, result.Value?.Count);
+            for (int i = 0; i < result.Value?.Count; i++)
             {
-                Assert.Equal(expectedMps[i].FirstName, result[i].FirstName);
-                Assert.Equal(expectedMps[i].LastName, result[i].LastName);
-                Assert.Equal(expectedMps[i].SchoolName, result[i].SchoolName);
+                Assert.Equal(expectedMps[i].FirstName, result.Value?[i].FirstName);
+                Assert.Equal(expectedMps[i].LastName, result.Value?[i].LastName);
+                Assert.Equal(expectedMps[i].SchoolName, result.Value?[i].SchoolName);
             }
 
             mockSchoolRepository.Received(1).GetPrincipalsBySchoolsQueryable(query.SchoolNames);

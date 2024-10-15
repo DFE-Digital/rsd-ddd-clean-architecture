@@ -44,11 +44,11 @@ namespace DfE.DomainDrivenDesignTemplate.Application.Tests.QueryHandlers.School
 
             mockCacheService.GetOrAddAsync(
                     cacheKey,
-                    Arg.Any<Func<Task<Principal>>>(),
+                    Arg.Any<Func<Task<Result<Principal>>>>(),
                     Arg.Any<string>())
                 .Returns(callInfo =>
                 {
-                    var callback = callInfo.ArgAt<Func<Task<Principal>>>(1);
+                    var callback = callInfo.ArgAt<Func<Task<Result<Principal>>>>(1);
                     return callback();
                 });
 
@@ -57,9 +57,9 @@ namespace DfE.DomainDrivenDesignTemplate.Application.Tests.QueryHandlers.School
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal(expectedMp.FirstName, result.FirstName);
-            Assert.Equal(expectedMp.LastName, result.LastName);
-            Assert.Equal(expectedMp.SchoolName, result.SchoolName);
+            Assert.Equal(expectedMp.FirstName, result.Value?.FirstName);
+            Assert.Equal(expectedMp.LastName, result.Value?.LastName);
+            Assert.Equal(expectedMp.SchoolName, result.Value?.SchoolName);
 
             await mockSchoolRepository.Received(1).GetPrincipalBySchoolAsync(query.SchoolName, default);
         }

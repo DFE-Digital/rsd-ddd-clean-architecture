@@ -7,15 +7,15 @@ using DfE.DomainDrivenDesignTemplate.Domain.Interfaces.Repositories;
 
 namespace DfE.DomainDrivenDesignTemplate.Application.Schools.Queries.GetPrincipalBySchool
 {
-    public record GetPrincipalBySchoolQuery(string SchoolName) : IRequest<Principal>;
+    public record GetPrincipalBySchoolQuery(string SchoolName) : IRequest<Result<Principal?>>;
 
     public class GetPrincipalBySchoolQueryHandler(
         ISchoolRepository schoolRepository,
         IMapper mapper,
         ICacheService<IMemoryCacheType> cacheService)
-        : IRequestHandler<GetPrincipalBySchoolQuery, Principal?>
+        : IRequestHandler<GetPrincipalBySchoolQuery, Result<Principal?>>
     {
-        public async Task<Principal?> Handle(GetPrincipalBySchoolQuery request, CancellationToken cancellationToken)
+        public async Task<Result<Principal?>> Handle(GetPrincipalBySchoolQuery request, CancellationToken cancellationToken)
         {
             var cacheKey = $"Principal_{CacheKeyHelper.GenerateHashedCacheKey(request.SchoolName)}";
 
@@ -28,7 +28,8 @@ namespace DfE.DomainDrivenDesignTemplate.Application.Schools.Queries.GetPrincipa
 
                 var result = mapper.Map<Principal?>(principal);
 
-                return result;
+                return result == null ? Result<Principal?>.Failure("") : Result<Principal?>.Success(result);
+
             }, methodName);
         }
     }

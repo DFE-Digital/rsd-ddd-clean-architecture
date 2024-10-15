@@ -14,15 +14,15 @@ namespace DfE.DomainDrivenDesignTemplate.Api.Tests.Integration.Controllers
     public class SchoolsControllerTests
     {
         [Theory]
-        [CustomAutoData(typeof(CustomWebApplicationDbContextFactoryCustomization<Program, SclContext>))]
+        [CustomAutoData(typeof(CustomWebApplicationDbContextFactoryCustomization))]
         public async Task GetPrincipalBySchoolAsync_ShouldReturnPrincipal_WhenSchoolExists(
-            CustomWebApplicationDbContextFactory<Program, SclContext> factory,
+            CustomWebApplicationDbContextFactory<Program> factory,
             ISchoolsClient schoolsClient)
         {
             factory.TestClaims = [new Claim(ClaimTypes.Role, "API.Read")];
 
             // Arrange
-            var dbContext = factory.GetDbContext();
+            var dbContext = factory.GetDbContext<SclContext>();
 
             await dbContext.Schools
                 .Where(x => x.SchoolName == "Test School 1")
@@ -39,9 +39,9 @@ namespace DfE.DomainDrivenDesignTemplate.Api.Tests.Integration.Controllers
         }
 
         [Theory]
-        [CustomAutoData(typeof(CustomWebApplicationDbContextFactoryCustomization<Program, SclContext>))]
+        [CustomAutoData(typeof(CustomWebApplicationDbContextFactoryCustomization))]
         public async Task GetPrincipalBySchoolAsync_ShouldReturnNotFound_WhenSchoolDoesNotExist(
-            CustomWebApplicationDbContextFactory<Program, SclContext> factory,
+            CustomWebApplicationDbContextFactory<Program> factory,
             ISchoolsClient schoolsClient)
         {
             // Arrange
@@ -57,15 +57,15 @@ namespace DfE.DomainDrivenDesignTemplate.Api.Tests.Integration.Controllers
         }
 
         [Theory]
-        [CustomAutoData(typeof(CustomWebApplicationDbContextFactoryCustomization<Program, SclContext>))]
+        [CustomAutoData(typeof(CustomWebApplicationDbContextFactoryCustomization))]
         public async Task GetPrincipalsBySchoolsAsync_ShouldReturnPrincipals_WhenSchoolsExists(
-            CustomWebApplicationDbContextFactory<Program, SclContext> factory,
+            CustomWebApplicationDbContextFactory<Program> factory,
             ISchoolsClient schoolsClient)
         {
             // Arrange
             factory.TestClaims = [new Claim(ClaimTypes.Role, "API.Read")];
 
-            var dbContext = factory.GetDbContext();
+            var dbContext = factory.GetDbContext<SclContext>();
 
             await dbContext.Schools.Where(x => x.SchoolName == "Test School 1")
                 .ExecuteUpdateAsync(x => x.SetProperty(p => p.SchoolName, "NewSchoolName"));
@@ -81,9 +81,9 @@ namespace DfE.DomainDrivenDesignTemplate.Api.Tests.Integration.Controllers
         }
 
         [Theory]
-        [CustomAutoData(typeof(CustomWebApplicationDbContextFactoryCustomization<Program, SclContext>))]
+        [CustomAutoData(typeof(CustomWebApplicationDbContextFactoryCustomization))]
         public async Task GetPrincipalsBySchoolsAsync_ShouldReturnEmpty_WhenSchoolsDontExists(
-            CustomWebApplicationDbContextFactory<Program, SclContext> factory,
+            CustomWebApplicationDbContextFactory<Program> factory,
             ISchoolsClient schoolsClient)
         {
             // Arrange
@@ -99,9 +99,9 @@ namespace DfE.DomainDrivenDesignTemplate.Api.Tests.Integration.Controllers
         }
 
         [Theory]
-        [CustomAutoData(typeof(CustomWebApplicationDbContextFactoryCustomization<Program, SclContext>))]
+        [CustomAutoData(typeof(CustomWebApplicationDbContextFactoryCustomization))]
         public async Task GetPrincipalsBySchoolsAsync_ShouldThrowAnException_WhenSchoolsNotProvided(
-            CustomWebApplicationDbContextFactory<Program, SclContext> factory,
+            CustomWebApplicationDbContextFactory<Program> factory,
             ISchoolsClient schoolsClient)
         {
             // Arrange
@@ -116,11 +116,11 @@ namespace DfE.DomainDrivenDesignTemplate.Api.Tests.Integration.Controllers
         }
 
         [Theory]
-        [CustomAutoData(typeof(CustomWebApplicationDbContextFactoryCustomization<Program, SclContext>),
+        [CustomAutoData(typeof(CustomWebApplicationDbContextFactoryCustomization),
             typeof(PrincipalDetailsApiClientCustomization),
             typeof(CreateSchoolCommandApiClientCustomization))]
         public async Task CreateSchoolAsync_ShouldReturnSchoolId_WhenValidRequest(
-            CustomWebApplicationDbContextFactory<Program, SclContext> factory,
+            CustomWebApplicationDbContextFactory<Program> factory,
             CreateSchoolCommand command,
             ISchoolsClient schoolsClient)
         {

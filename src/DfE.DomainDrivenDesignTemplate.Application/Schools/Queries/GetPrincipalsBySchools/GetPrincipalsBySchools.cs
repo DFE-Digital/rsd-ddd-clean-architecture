@@ -9,15 +9,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DfE.DomainDrivenDesignTemplate.Application.Schools.Queries.GetPrincipalsBySchools
 {
-    public record GetPrincipalsBySchoolsQuery(List<string> SchoolNames) : IRequest<List<Principal>>;
+    public record GetPrincipalsBySchoolsQuery(List<string> SchoolNames) : IRequest<Result<List<Principal>>>;
 
     public class GetPrincipalsBySchoolsQueryHandler(
         ISchoolRepository schoolRepository,
         IMapper mapper,
         ICacheService<IMemoryCacheType> cacheService)
-        : IRequestHandler<GetPrincipalsBySchoolsQuery, List<Principal>>
+        : IRequestHandler<GetPrincipalsBySchoolsQuery, Result<List<Principal>>>
     {
-        public async Task<List<Principal>> Handle(GetPrincipalsBySchoolsQuery request, CancellationToken cancellationToken)
+        public async Task<Result<List<Principal>>> Handle(GetPrincipalsBySchoolsQuery request, CancellationToken cancellationToken)
         {
             var cacheKey = $"Principal_{CacheKeyHelper.GenerateHashedCacheKey(request.SchoolNames)}";
 
@@ -32,7 +32,8 @@ namespace DfE.DomainDrivenDesignTemplate.Application.Schools.Queries.GetPrincipa
                     .ProjectTo<Principal>(mapper.ConfigurationProvider)
                     .ToListAsync(cancellationToken);
 
-                return membersOfParliament;
+                return Result<List<Principal>>.Success(membersOfParliament);
+
             }, methodName);
         }
     }

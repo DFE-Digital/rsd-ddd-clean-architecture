@@ -9,6 +9,8 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using System.Net;
+using DfE.DomainDrivenDesignTemplate.Application.Common.Exceptions;
 
 namespace DfE.DomainDrivenDesignTemplate.Api.Controllers
 {
@@ -31,7 +33,7 @@ namespace DfE.DomainDrivenDesignTemplate.Api.Controllers
         {
             var result = await sender.Send(new GetPrincipalBySchoolQuery(schoolName), cancellationToken);
 
-            return result is null ? NotFound() : Ok(result);
+            return !result.IsSuccess ? NotFound(new CustomProblemDetails(HttpStatusCode.NotFound, result.Error)) : Ok(result.Value);
         }
 
         /// <summary>
@@ -47,7 +49,7 @@ namespace DfE.DomainDrivenDesignTemplate.Api.Controllers
         {
             var result = await sender.Send(request, cancellationToken);
 
-            return Ok(result ?? []);
+            return !result.IsSuccess ? NotFound(new CustomProblemDetails(HttpStatusCode.NotFound, result.Error)) : Ok(result.Value);
         }
 
         /// <summary>
