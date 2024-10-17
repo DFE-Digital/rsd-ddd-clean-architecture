@@ -13,6 +13,14 @@ using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
 using DfE.CoreLibs.Http.Middlewares.CorrelationId;
 using DfE.CoreLibs.Http.Interfaces;
+using DfE.DomainDrivenDesignTemplate.Domain.Entities.Schools;
+using Microsoft.AspNetCore.OData;
+using Microsoft.OData.ModelBuilder;
+using DfE.DomainDrivenDesignTemplate.Application.Schools.Models;
+using DfE.DomainDrivenDesignTemplate.Domain.ValueObjects;
+using Microsoft.AspNetCore.OData.Formatter.Serialization;
+using Microsoft.OData;
+using Microsoft.OData.Edm;
 
 namespace DfE.DomainDrivenDesignTemplate.Api
 {
@@ -20,7 +28,6 @@ namespace DfE.DomainDrivenDesignTemplate.Api
     {
         public static async Task Main(string[] args)
         {
-
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Host.UseSerilog((context, services, loggerConfiguration) =>
@@ -34,7 +41,27 @@ namespace DfE.DomainDrivenDesignTemplate.Api
             });
 
             builder.Services.AddControllers()
-                .AddJsonOptions(c => { c.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); });
+                .AddJsonOptions(c => { c.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); })
+                .AddOData(options =>
+                {
+                    var oDataBuilder = new ODataConventionModelBuilder();
+
+                    oDataBuilder.EntitySet<School>("Schools")
+                        .EntityType
+                        .HasKey(s => s.PrimitiveId)
+                        .Ignore(s => s.Id);
+
+                    oDataBuilder.EntityType<School>().Property(s => s.PrimitiveId);
+
+                    oDataBuilder.ComplexType<NameDetails>();
+                    oDataBuilder.ComplexType<PrincipalId>();
+                    oDataBuilder.ComplexType<SchoolId>();
+
+                    options.Select().Filter().OrderBy().Expand().Count().SetMaxTop(100);
+
+                    options.AddRouteComponents("odata", oDataBuilder.GetEdmModel())
+                        .EnableQueryFeatures();
+                });
 
             builder.Services.AddApiVersioning(config =>
             {

@@ -75,7 +75,6 @@ public class SclContext : DbContext
             .HasConversion(
                 v => v!.Value,
                 v => new SchoolId(v));
-
         schoolConfiguration.Property(e => e.PrincipalId)
             .HasConversion(
                 v => v.Value,

@@ -95,6 +95,53 @@ namespace DfE.DomainDrivenDesignTemplate.Client.Contracts
 
     }
 
+    [System.CodeDom.Compiler.GeneratedCode("NSwag", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial interface ISchoolsODataClient
+    {
+        /// <exception cref="PersonsApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<FileResponse> GetAsync(int? top, int? skip, string filter, string select, string expand, string orderby);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <exception cref="PersonsApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<FileResponse> GetAsync(int? top, int? skip, string filter, string select, string expand, string orderby, System.Threading.CancellationToken cancellationToken);
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NSwag", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial interface IMetadataClient
+    {
+        /// <summary>
+        /// Generates the OData $metadata document.
+        /// </summary>
+        /// <returns>The IEdmModel representing $metadata.</returns>
+        /// <exception cref="PersonsApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<IEdmModel> GetMetadataAsync();
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Generates the OData $metadata document.
+        /// </summary>
+        /// <returns>The IEdmModel representing $metadata.</returns>
+        /// <exception cref="PersonsApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<IEdmModel> GetMetadataAsync(System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Generates the OData service document.
+        /// </summary>
+        /// <returns>The service document for the service.</returns>
+        /// <exception cref="PersonsApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<ODataServiceDocument> GetServiceDocumentAsync();
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Generates the OData service document.
+        /// </summary>
+        /// <returns>The service document for the service.</returns>
+        /// <exception cref="PersonsApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<ODataServiceDocument> GetServiceDocumentAsync(System.Threading.CancellationToken cancellationToken);
+
+    }
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class Principal : Person
     {
@@ -310,6 +357,762 @@ namespace DfE.DomainDrivenDesignTemplate.Client.Contracts
 
     }
 
+    /// <summary>
+    /// Semantic representation of an EDM model.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public abstract partial class IEdmModel
+    {
+        /// <summary>
+        /// Gets the collection of schema elements that are contained in this model.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("schemaElements", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.List<IEdmSchemaElement> SchemaElements { get; set; }
+
+        /// <summary>
+        /// Gets the collection of vocabulary annotations that are contained in this model.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("vocabularyAnnotations", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.List<IEdmVocabularyAnnotation> VocabularyAnnotations { get; set; }
+
+        /// <summary>
+        /// Gets the collection of models referred to by this model (mainly by the this.References).
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("referencedModels", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.List<IEdmModel> ReferencedModels { get; set; }
+
+        /// <summary>
+        /// Gets the collection of namespaces that schema elements use contained in this model.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("declaredNamespaces", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.List<string> DeclaredNamespaces { get; set; }
+
+        /// <summary>
+        /// Gets the model's annotations manager.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("directValueAnnotationsManager", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public IEdmDirectValueAnnotationsManager DirectValueAnnotationsManager { get; set; }
+
+        /// <summary>
+        /// Gets the only one entity container of the model.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("entityContainer", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public IEdmEntityContainer EntityContainer { get; set; }
+
+        public string ToJson()
+        {
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+        public static IEdmModel FromJson(string data)
+        {
+
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<IEdmModel>(data, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+
+    }
+
+    /// <summary>
+    /// Common base interface for all named children of EDM schema.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public abstract partial class IEdmSchemaElement
+    {
+        /// <summary>
+        /// Gets the kind of this schema element.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("schemaElementKind", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public EdmSchemaElementKind SchemaElementKind { get; set; }
+
+        /// <summary>
+        /// Gets the namespace this schema element belongs to.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("namespace", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Namespace { get; set; }
+
+        public string ToJson()
+        {
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+        public static IEdmSchemaElement FromJson(string data)
+        {
+
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<IEdmSchemaElement>(data, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+
+    }
+
+    /// <summary>
+    /// Defines EDM schema element types.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum EdmSchemaElementKind
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"None")]
+        None = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"TypeDefinition")]
+        TypeDefinition = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Term")]
+        Term = 2,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Action")]
+        Action = 3,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"EntityContainer")]
+        EntityContainer = 4,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Function")]
+        Function = 5,
+
+    }
+
+    /// <summary>
+    /// Represents an EDM vocabulary annotation.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public abstract partial class IEdmVocabularyAnnotation
+    {
+        /// <summary>
+        /// Gets the qualifier used to discriminate between multiple bindings of the same property or type.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("qualifier", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Qualifier { get; set; }
+
+        /// <summary>
+        /// Gets the term bound by the annotation.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("term", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public IEdmTerm Term { get; set; }
+
+        /// <summary>
+        /// Gets the element the annotation applies to.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("target", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public IEdmVocabularyAnnotatable Target { get; set; }
+
+        /// <summary>
+        /// Gets the expression producing the value of the annotation.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("value", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public IEdmExpression Value { get; set; }
+
+        /// <summary>
+        /// Gets whether the annotation uses a default value.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("usesDefault", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool UsesDefault { get; set; }
+
+        public string ToJson()
+        {
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+        public static IEdmVocabularyAnnotation FromJson(string data)
+        {
+
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<IEdmVocabularyAnnotation>(data, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+
+    }
+
+    /// <summary>
+    /// Represents an EDM term.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public abstract partial class IEdmTerm
+    {
+        /// <summary>
+        /// Gets the type of this term.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("type", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public IEdmTypeReference Type { get; set; }
+
+        /// <summary>
+        /// Gets the AppliesTo of this term.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("appliesTo", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string AppliesTo { get; set; }
+
+        /// <summary>
+        /// Gets the DefaultValue of this term.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("defaultValue", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string DefaultValue { get; set; }
+
+        public string ToJson()
+        {
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+        public static IEdmTerm FromJson(string data)
+        {
+
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<IEdmTerm>(data, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+
+    }
+
+    /// <summary>
+    /// Represents a references to a type.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public abstract partial class IEdmTypeReference
+    {
+        /// <summary>
+        /// Gets a value indicating whether this type is nullable.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("isNullable", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool IsNullable { get; set; }
+
+        /// <summary>
+        /// Gets the definition to which this type refers.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("definition", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public IEdmType Definition { get; set; }
+
+        public string ToJson()
+        {
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+        public static IEdmTypeReference FromJson(string data)
+        {
+
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<IEdmTypeReference>(data, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+
+    }
+
+    /// <summary>
+    /// Represents the definition of an EDM type.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public abstract partial class IEdmType
+    {
+        /// <summary>
+        /// Gets the kind of this type.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("typeKind", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public EdmTypeKind TypeKind { get; set; }
+
+        public string ToJson()
+        {
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+        public static IEdmType FromJson(string data)
+        {
+
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<IEdmType>(data, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+
+    }
+
+    /// <summary>
+    /// Defines EDM metatypes.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum EdmTypeKind
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"None")]
+        None = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Primitive")]
+        Primitive = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Entity")]
+        Entity = 2,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Complex")]
+        Complex = 3,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Collection")]
+        Collection = 4,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"EntityReference")]
+        EntityReference = 5,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Enum")]
+        Enum = 6,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"TypeDefinition")]
+        TypeDefinition = 7,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Untyped")]
+        Untyped = 8,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Path")]
+        Path = 9,
+
+    }
+
+    /// <summary>
+    /// Represents an element that can be targeted by Vocabulary Annotations
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public abstract partial class IEdmVocabularyAnnotatable
+    {
+
+        public string ToJson()
+        {
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+        public static IEdmVocabularyAnnotatable FromJson(string data)
+        {
+
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<IEdmVocabularyAnnotatable>(data, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+
+    }
+
+    /// <summary>
+    /// Represents an EDM expression.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public abstract partial class IEdmExpression
+    {
+        /// <summary>
+        /// Gets the kind of this expression.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("expressionKind", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public EdmExpressionKind ExpressionKind { get; set; }
+
+        public string ToJson()
+        {
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+        public static IEdmExpression FromJson(string data)
+        {
+
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<IEdmExpression>(data, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+
+    }
+
+    /// <summary>
+    /// Defines EDM expression kinds.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum EdmExpressionKind
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"None")]
+        None = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"BinaryConstant")]
+        BinaryConstant = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"BooleanConstant")]
+        BooleanConstant = 2,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"DateTimeOffsetConstant")]
+        DateTimeOffsetConstant = 3,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"DecimalConstant")]
+        DecimalConstant = 4,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"FloatingConstant")]
+        FloatingConstant = 5,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"GuidConstant")]
+        GuidConstant = 6,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"IntegerConstant")]
+        IntegerConstant = 7,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"StringConstant")]
+        StringConstant = 8,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"DurationConstant")]
+        DurationConstant = 9,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Null")]
+        Null = 10,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Record")]
+        Record = 11,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Collection")]
+        Collection = 12,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Path")]
+        Path = 13,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"If")]
+        If = 14,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Cast")]
+        Cast = 15,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"IsOf")]
+        IsOf = 16,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"FunctionApplication")]
+        FunctionApplication = 17,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"LabeledExpressionReference")]
+        LabeledExpressionReference = 18,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Labeled")]
+        Labeled = 19,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"PropertyPath")]
+        PropertyPath = 20,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"NavigationPropertyPath")]
+        NavigationPropertyPath = 21,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"DateConstant")]
+        DateConstant = 22,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"TimeOfDayConstant")]
+        TimeOfDayConstant = 23,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"EnumMember")]
+        EnumMember = 24,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"AnnotationPath")]
+        AnnotationPath = 25,
+
+    }
+
+    /// <summary>
+    /// Manages getting and setting direct annotations on EDM elements.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public abstract partial class IEdmDirectValueAnnotationsManager
+    {
+
+        public string ToJson()
+        {
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+        public static IEdmDirectValueAnnotationsManager FromJson(string data)
+        {
+
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<IEdmDirectValueAnnotationsManager>(data, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+
+    }
+
+    /// <summary>
+    /// Represents an EDM entity container.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public abstract partial class IEdmEntityContainer
+    {
+        /// <summary>
+        /// Gets a collection of the elements of this entity container.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("elements", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.List<IEdmEntityContainerElement> Elements { get; set; }
+
+        public string ToJson()
+        {
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+        public static IEdmEntityContainer FromJson(string data)
+        {
+
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<IEdmEntityContainer>(data, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+
+    }
+
+    /// <summary>
+    /// Represents the common elements of all EDM entity container elements.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public abstract partial class IEdmEntityContainerElement
+    {
+        /// <summary>
+        /// Gets the kind of element of this container element.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("containerElementKind", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public EdmContainerElementKind ContainerElementKind { get; set; }
+
+        /// <summary>
+        /// Gets the container that contains this element.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("container", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public IEdmEntityContainer Container { get; set; }
+
+        public string ToJson()
+        {
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+        public static IEdmEntityContainerElement FromJson(string data)
+        {
+
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<IEdmEntityContainerElement>(data, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+
+    }
+
+    /// <summary>
+    /// Defines EDM container element types.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum EdmContainerElementKind
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"None")]
+        None = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"EntitySet")]
+        EntitySet = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"ActionImport")]
+        ActionImport = 2,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"FunctionImport")]
+        FunctionImport = 3,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Singleton")]
+        Singleton = 4,
+
+    }
+
+    /// <summary>
+    /// Class representing the a service document.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ODataServiceDocument : ODataAnnotatable
+    {
+        /// <summary>
+        /// Gets or sets the set of entity sets in the service document.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("entitySets", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.List<ODataEntitySetInfo> EntitySets { get; set; }
+
+        /// <summary>
+        /// Gets or sets the set of singletons in the service document.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("singletons", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.List<ODataSingletonInfo> Singletons { get; set; }
+
+        /// <summary>
+        /// Gets or sets the set of function imports in the service document.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("functionImports", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.List<ODataFunctionImportInfo> FunctionImports { get; set; }
+
+        public string ToJson()
+        {
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+        public static ODataServiceDocument FromJson(string data)
+        {
+
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<ODataServiceDocument>(data, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+
+    }
+
+    /// <summary>
+    /// Class representing a entity set in a service document.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ODataEntitySetInfo : ODataServiceDocumentElement
+    {
+
+        public string ToJson()
+        {
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+        public static ODataEntitySetInfo FromJson(string data)
+        {
+
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<ODataEntitySetInfo>(data, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+
+    }
+
+    /// <summary>
+    /// Abstract class representing an element (EntitySet, Singleton) in a service document.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public abstract partial class ODataServiceDocumentElement : ODataAnnotatable
+    {
+        /// <summary>
+        /// Gets or sets the URI representing the Unified Resource Locator (URL) to the element.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("url", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Uri Url { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the element; this is the entity set or singleton name in JSON.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the title of the element; this is the title in JSON.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("title", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Title { get; set; }
+
+        public string ToJson()
+        {
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+        public static ODataServiceDocumentElement FromJson(string data)
+        {
+
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<ODataServiceDocumentElement>(data, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+
+    }
+
+    /// <summary>
+    /// Base class for all annotatable types in OData library.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public abstract partial class ODataAnnotatable
+    {
+        /// <summary>
+        /// The annotation for storing @odata.type.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("typeAnnotation", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ODataTypeAnnotation TypeAnnotation { get; set; }
+
+        public string ToJson()
+        {
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+        public static ODataAnnotatable FromJson(string data)
+        {
+
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<ODataAnnotatable>(data, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+
+    }
+
+    /// <summary>
+    /// Annotation which stores the EDM type information of a value.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ODataTypeAnnotation
+    {
+        /// <summary>
+        /// Gets the type name to serialize, for the annotated item. 
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("typeName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string TypeName { get; set; }
+
+        /// <summary>
+        /// This property is redundant info about TypeName but to improve reader performance.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("type", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public IEdmType Type { get; set; }
+
+        public string ToJson()
+        {
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+        public static ODataTypeAnnotation FromJson(string data)
+        {
+
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<ODataTypeAnnotation>(data, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+
+    }
+
+    /// <summary>
+    /// Class representing a singleton in a service document.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ODataSingletonInfo : ODataServiceDocumentElement
+    {
+
+        public string ToJson()
+        {
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+        public static ODataSingletonInfo FromJson(string data)
+        {
+
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<ODataSingletonInfo>(data, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+
+    }
+
+    /// <summary>
+    /// Class representing a function Import in a service document.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ODataFunctionImportInfo : ODataServiceDocumentElement
+    {
+
+        public string ToJson()
+        {
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+        public static ODataFunctionImportInfo FromJson(string data)
+        {
+
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<ODataFunctionImportInfo>(data, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+
+    }
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
     internal class DateFormatConverter : Newtonsoft.Json.Converters.IsoDateTimeConverter
     {
@@ -319,6 +1122,41 @@ namespace DfE.DomainDrivenDesignTemplate.Client.Contracts
         }
     }
 
+    [System.CodeDom.Compiler.GeneratedCode("NSwag", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class FileResponse : System.IDisposable
+    {
+        private System.IDisposable _client;
+        private System.IDisposable _response;
+
+        public int StatusCode { get; private set; }
+
+        public System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> Headers { get; private set; }
+
+        public System.IO.Stream Stream { get; private set; }
+
+        public bool IsPartial
+        {
+            get { return StatusCode == 206; }
+        }
+
+        public FileResponse(int statusCode, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, System.IO.Stream stream, System.IDisposable client, System.IDisposable response)
+        {
+            StatusCode = statusCode;
+            Headers = headers;
+            Stream = stream;
+            _client = client;
+            _response = response;
+        }
+
+        public void Dispose()
+        {
+            Stream.Dispose();
+            if (_response != null)
+                _response.Dispose();
+            if (_client != null)
+                _client.Dispose();
+        }
+    }
 
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]

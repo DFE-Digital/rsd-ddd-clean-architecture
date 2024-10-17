@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using DfE.DomainDrivenDesignTemplate.Domain.Common;
 using DfE.DomainDrivenDesignTemplate.Domain.Events;
 using DfE.DomainDrivenDesignTemplate.Domain.Validators;
@@ -9,6 +11,8 @@ namespace DfE.DomainDrivenDesignTemplate.Domain.Entities.Schools
     public sealed class School : BaseAggregateRoot, IEntity<SchoolId>
     {
         public SchoolId Id { get; }
+        [NotMapped]
+        public int PrimitiveId => Id.Value;
         public PrincipalId PrincipalId { get; private set; }
         public string SchoolName { get; private set; }
         public NameDetails NameDetails { get; private set; }
