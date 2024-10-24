@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DfE.DomainDrivenDesignTemplate.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -37,6 +37,7 @@ namespace DfE.DomainDrivenDesignTemplate.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    PrimitiveId = table.Column<int>(type: "int", nullable: false, computedColumnSql: "[Id]"),
                     PrincipalId = table.Column<int>(type: "int", nullable: false),
                     SchoolName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NameListAs = table.Column<string>(type: "nvarchar(max)", nullable: true),

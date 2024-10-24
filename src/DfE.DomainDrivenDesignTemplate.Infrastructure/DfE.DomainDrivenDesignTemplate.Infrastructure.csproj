@@ -14,11 +14,17 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.10" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
     <PackageReference Include="Microsoft.Identity.Web" Version="3.2.2" />
+    <PackageReference Include="Microsoft.OData.Edm" Version="8.1.0" />
+    <PackageReference Include="Microsoft.OData.ModelBuilder" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DfE.DomainDrivenDesignTemplate.Application\DfE.DomainDrivenDesignTemplate.Application.csproj" />
     <ProjectReference Include="..\DfE.DomainDrivenDesignTemplate.Domain\DfE.DomainDrivenDesignTemplate.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

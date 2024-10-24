@@ -11,14 +11,34 @@ using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Net;
 using DfE.DomainDrivenDesignTemplate.Application.Common.Exceptions;
+using Microsoft.AspNetCore.OData.Routing.Controllers;
+using DfE.DomainDrivenDesignTemplate.Application.Schools.Queries.GetSchoolById;
+using DfE.DomainDrivenDesignTemplate.Application.Schools.Queries.GetSchools;
+using Microsoft.AspNetCore.OData.Query;
 
 namespace DfE.DomainDrivenDesignTemplate.Api.Controllers
 {
     [ApiController]
     [ApiVersion("1.0")]
     [Route("v{version:apiVersion}/[controller]")]
-    public class SchoolsController(ISender sender) : ControllerBase
+    public class SchoolsController(ISender sender) : ODataController
     {
+        [HttpGet]
+        [EnableQuery]
+        public async Task<IActionResult> GetSchoolsAsync()
+        {
+            var result = await sender.Send(new GetSchoolsQuery());
+            return Ok(result);
+        }
+
+        [HttpGet("{key}")]
+        [EnableQuery]
+        public async Task<IActionResult> GetAsync([FromRoute] int key)
+        {
+            var result = await sender.Send(new GetSchoolByIdQuery(key));
+            return Ok(result);
+        }
+
         /// <summary>
         /// Retrieve Principal by school name
         /// </summary>

@@ -1,3 +1,4 @@
+using DfE.DomainDrivenDesignTemplate.Domain.Common;
 using DfE.DomainDrivenDesignTemplate.Domain.Entities.Schools;
 using DfE.DomainDrivenDesignTemplate.Domain.ValueObjects;
 using DfE.DomainDrivenDesignTemplate.Infrastructure.Database.Interceptors;
@@ -79,6 +80,9 @@ public class SclContext : DbContext
             .HasConversion(
                 v => v.Value,
                 v => new PrincipalId(v));
+
+        schoolConfiguration.Property(e => e.PrimitiveId)
+                .HasComputedColumnSql("[Id]");
 
         schoolConfiguration.Property(e => e.SchoolName).HasColumnName("SchoolName");
 

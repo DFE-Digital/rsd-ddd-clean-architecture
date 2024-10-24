@@ -48,5 +48,26 @@ namespace DfE.DomainDrivenDesignTemplate.Api.Client.Extensions
             }
             return services;
         }
+
+        //public static IServiceCollection AddODataServiceClient(
+        //    this IServiceCollection services,
+        //    IConfiguration configuration)
+        //{
+        //    var apiSettings = new ApiClientSettings();
+        //    configuration.GetSection("ApiClient").Bind(apiSettings);
+
+        //    services.AddSingleton(apiSettings);
+        //    services.AddSingleton<ITokenAcquisitionService, TokenAcquisitionService>();
+
+        //    services.AddTransient<IODataServiceClient, ODataServiceClient>(serviceProvider =>
+        //    {
+        //        var tokenService = serviceProvider.GetRequiredService<ITokenAcquisitionService>();
+        //        var token = tokenService.GetTokenAsync().Result;
+        //        return ActivatorUtilities.CreateInstance<ODataServiceClient>(
+        //            serviceProvider, apiSettings.OData?.BaseUrl!, token);
+        //    });
+
+        //    return services;
+        //}
     }
 }

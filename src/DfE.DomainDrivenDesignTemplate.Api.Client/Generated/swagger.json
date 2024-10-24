@@ -6,6 +6,95 @@
     "version": "1.0.0"
   },
   "paths": {
+    "/v1/Schools": {
+      "get": {
+        "tags": [
+          "Schools"
+        ],
+        "operationId": "Schools_GetSchools",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Schools"
+        ],
+        "summary": "Creates a new School along with the Principal Details",
+        "operationId": "Schools_CreateSchool",
+        "requestBody": {
+          "x-name": "request",
+          "description": "The request.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSchoolCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "201": {
+            "description": "School created successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchoolId"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request data."
+          }
+        }
+      }
+    },
+    "/v1/Schools/{key}": {
+      "get": {
+        "tags": [
+          "Schools"
+        ],
+        "operationId": "Schools_Get",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/Schools/{schoolName}/principal": {
       "get": {
         "tags": [
@@ -85,43 +174,6 @@
         }
       }
     },
-    "/v1/Schools": {
-      "post": {
-        "tags": [
-          "Schools"
-        ],
-        "summary": "Creates a new School along with the Principal Details",
-        "operationId": "Schools_CreateSchool",
-        "requestBody": {
-          "x-name": "request",
-          "description": "The request.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateSchoolCommand"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
-        "responses": {
-          "201": {
-            "description": "School created successfully.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SchoolId"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid request data."
-          }
-        }
-      }
-    },
     "/v1/Schools/createReport": {
       "post": {
         "tags": [
@@ -159,62 +211,97 @@
         }
       }
     },
-    "/odata/SchoolsOData": {
+    "/odata/Schools": {
       "get": {
         "tags": [
-          "SchoolsOData"
+          "Schools"
         ],
-        "operationId": "SchoolsOData_Get",
+        "operationId": "Schools_GetSchools2",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/odata/Schools/$count": {
+      "get": {
+        "tags": [
+          "Schools"
+        ],
+        "operationId": "Schools_GetSchools3",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/odata/Schools({key})": {
+      "get": {
+        "tags": [
+          "Schools"
+        ],
+        "operationId": "Schools_Get2",
         "parameters": [
           {
-            "name": "top",
-            "in": "query",
+            "name": "key",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "integer",
               "format": "int32"
             },
             "x-position": 1
-          },
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/odata/Schools/{key}": {
+      "get": {
+        "tags": [
+          "Schools"
+        ],
+        "operationId": "Schools_Get3",
+        "parameters": [
           {
-            "name": "skip",
-            "in": "query",
+            "name": "key",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "integer",
               "format": "int32"
             },
-            "x-position": 2
-          },
-          {
-            "name": "filter",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 3
-          },
-          {
-            "name": "select",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 4
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 5
-          },
-          {
-            "name": "orderby",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 6
+            "x-position": 1
           }
         ],
         "responses": {

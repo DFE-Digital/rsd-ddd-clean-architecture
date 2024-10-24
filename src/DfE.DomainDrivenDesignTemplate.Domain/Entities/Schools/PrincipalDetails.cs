@@ -8,6 +8,7 @@ namespace DfE.DomainDrivenDesignTemplate.Domain.Entities.Schools
     public sealed class PrincipalDetails : IEntity<PrincipalId>
     {
         public PrincipalId Id { get; private set; }
+        public int PrimitiveId => Id.Value;
         public string? Email { get; private set; }
         public string? Phone { get; private set; }
         public int TypeId { get; private set; }

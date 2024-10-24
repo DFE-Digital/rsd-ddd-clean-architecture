@@ -17,7 +17,7 @@ namespace DfE.DomainDrivenDesignTemplate.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.8")
+                .HasAnnotation("ProductVersion", "8.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -63,6 +63,11 @@ namespace DfE.DomainDrivenDesignTemplate.Infrastructure.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("LastRefresh");
 
+                    b.Property<int>("PrimitiveId")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("int")
+                        .HasComputedColumnSql("[Id]");
+
                     b.Property<int>("PrincipalId")
                         .HasColumnType("int");
 
@@ -87,7 +92,7 @@ namespace DfE.DomainDrivenDesignTemplate.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("DfE.DomainDrivenDesignTemplate.Domain.Entities.Schools.School.NameDetails#DfE.DomainDrivenDesignTemplate.Domain.ValueObjects.NameDetails", "NameDetails", b1 =>
+                    b.OwnsOne("DfE.DomainDrivenDesignTemplate.Domain.ValueObjects.NameDetails", "NameDetails", b1 =>
                         {
                             b1.Property<int>("SchoolId")
                                 .HasColumnType("int");

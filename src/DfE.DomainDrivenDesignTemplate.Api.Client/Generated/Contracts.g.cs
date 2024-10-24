@@ -25,6 +25,37 @@ namespace DfE.DomainDrivenDesignTemplate.Client.Contracts
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial interface ISchoolsClient
     {
+        /// <exception cref="PersonsApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<FileResponse> GetSchoolsAsync();
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <exception cref="PersonsApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<FileResponse> GetSchoolsAsync(System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Creates a new School along with the Principal Details
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns>School created successfully.</returns>
+        /// <exception cref="PersonsApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<SchoolId> CreateSchoolAsync(CreateSchoolCommand request);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Creates a new School along with the Principal Details
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns>School created successfully.</returns>
+        /// <exception cref="PersonsApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<SchoolId> CreateSchoolAsync(CreateSchoolCommand request, System.Threading.CancellationToken cancellationToken);
+
+        /// <exception cref="PersonsApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<FileResponse> GetAsync(int key);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <exception cref="PersonsApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<FileResponse> GetAsync(int key, System.Threading.CancellationToken cancellationToken);
+
         /// <summary>
         /// Retrieve Principal by school name
         /// </summary>
@@ -60,23 +91,6 @@ namespace DfE.DomainDrivenDesignTemplate.Client.Contracts
         System.Threading.Tasks.Task<System.Collections.ObjectModel.ObservableCollection<Principal>> GetPrincipalsBySchoolsAsync(GetPrincipalsBySchoolsQuery request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
-        /// Creates a new School along with the Principal Details
-        /// </summary>
-        /// <param name="request">The request.</param>
-        /// <returns>School created successfully.</returns>
-        /// <exception cref="PersonsApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<SchoolId> CreateSchoolAsync(CreateSchoolCommand request);
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Creates a new School along with the Principal Details
-        /// </summary>
-        /// <param name="request">The request.</param>
-        /// <returns>School created successfully.</returns>
-        /// <exception cref="PersonsApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<SchoolId> CreateSchoolAsync(CreateSchoolCommand request, System.Threading.CancellationToken cancellationToken);
-
-        /// <summary>
         /// An example endpoint to trigger a background task
         /// </summary>
         /// <param name="request">The request.</param>
@@ -93,17 +107,33 @@ namespace DfE.DomainDrivenDesignTemplate.Client.Contracts
         /// <exception cref="PersonsApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<bool> CreateReportAsync(CreateReportCommand request, System.Threading.CancellationToken cancellationToken);
 
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NSwag", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial interface ISchoolsODataClient
-    {
         /// <exception cref="PersonsApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<FileResponse> GetAsync(int? top, int? skip, string filter, string select, string expand, string orderby);
+        System.Threading.Tasks.Task<FileResponse> GetSchools2Async();
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="PersonsApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<FileResponse> GetAsync(int? top, int? skip, string filter, string select, string expand, string orderby, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<FileResponse> GetSchools2Async(System.Threading.CancellationToken cancellationToken);
+
+        /// <exception cref="PersonsApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<FileResponse> GetSchools3Async();
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <exception cref="PersonsApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<FileResponse> GetSchools3Async(System.Threading.CancellationToken cancellationToken);
+
+        /// <exception cref="PersonsApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<FileResponse> Get2Async(int key);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <exception cref="PersonsApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<FileResponse> Get2Async(int key, System.Threading.CancellationToken cancellationToken);
+
+        /// <exception cref="PersonsApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<FileResponse> Get3Async(int key);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <exception cref="PersonsApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<FileResponse> Get3Async(int key, System.Threading.CancellationToken cancellationToken);
 
     }
 

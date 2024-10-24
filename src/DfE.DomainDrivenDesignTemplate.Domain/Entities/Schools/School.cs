@@ -10,16 +10,19 @@ namespace DfE.DomainDrivenDesignTemplate.Domain.Entities.Schools
 #pragma warning disable CS8618
     public sealed class School : BaseAggregateRoot, IEntity<SchoolId>
     {
-        public SchoolId Id { get; }
-        [NotMapped]
-        public int PrimitiveId => Id.Value;
-        public PrincipalId PrincipalId { get; private set; }
-        public string SchoolName { get; private set; }
-        public NameDetails NameDetails { get; private set; }
-        public DateTime LastRefresh { get; private set; }
-        public DateOnly? EndDate { get; private set; }
+        public SchoolId Id { get;}
+        public int PrimitiveId
+        {
+            get => Id.Value;
+            internal set { }
+        }
+        public PrincipalId PrincipalId { get; internal set; }
+        public string SchoolName { get; internal set; }
+        public NameDetails NameDetails { get; internal set; }
+        public DateTime LastRefresh { get; internal set; }
+        public DateOnly? EndDate { get; internal set; }
 
-        public PrincipalDetails PrincipalDetails { get; private set; }
+        public PrincipalDetails PrincipalDetails { get; internal set; }
 
         private School() { }
 

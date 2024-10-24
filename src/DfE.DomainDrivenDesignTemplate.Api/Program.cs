@@ -1,26 +1,28 @@
+using System.Diagnostics;
+using Asp.Versioning;
+using Asp.Versioning.ApiExplorer;
+using DfE.CoreLibs.Http.Interfaces;
+using DfE.CoreLibs.Http.Middlewares.CorrelationId;
 using DfE.DomainDrivenDesignTemplate.Api.Middleware;
 using DfE.DomainDrivenDesignTemplate.Api.Swagger;
+using DfE.DomainDrivenDesignTemplate.Domain.Entities.Schools;
+using DfE.DomainDrivenDesignTemplate.Domain.ValueObjects;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.OData;
 using Microsoft.FeatureManagement;
+using Microsoft.OData.Edm;
+using Microsoft.OData.ModelBuilder;
+using Microsoft.OpenApi.Models;
 using NetEscapades.AspNetCore.SecurityHeaders;
 using Serilog;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System.Reflection;
 using System.Text;
 using System.Text.Json.Serialization;
-using Asp.Versioning;
-using Asp.Versioning.ApiExplorer;
-using DfE.CoreLibs.Http.Middlewares.CorrelationId;
-using DfE.CoreLibs.Http.Interfaces;
-using DfE.DomainDrivenDesignTemplate.Domain.Entities.Schools;
-using Microsoft.AspNetCore.OData;
-using Microsoft.OData.ModelBuilder;
-using DfE.DomainDrivenDesignTemplate.Application.Schools.Models;
-using DfE.DomainDrivenDesignTemplate.Domain.ValueObjects;
-using Microsoft.AspNetCore.OData.Formatter.Serialization;
+using DfE.DomainDrivenDesignTemplate.Infrastructure.OData;
 using Microsoft.OData;
-using Microsoft.OData.Edm;
+using Microsoft.Extensions.Options;
 
 namespace DfE.DomainDrivenDesignTemplate.Api
 {
@@ -42,25 +44,10 @@ namespace DfE.DomainDrivenDesignTemplate.Api
 
             builder.Services.AddControllers()
                 .AddJsonOptions(c => { c.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); })
-                .AddOData(options =>
+                .AddOData(opt =>
                 {
-                    var oDataBuilder = new ODataConventionModelBuilder();
-
-                    oDataBuilder.EntitySet<School>("Schools")
-                        .EntityType
-                        .HasKey(s => s.PrimitiveId)
-                        .Ignore(s => s.Id);
-
-                    oDataBuilder.EntityType<School>().Property(s => s.PrimitiveId);
-
-                    oDataBuilder.ComplexType<NameDetails>();
-                    oDataBuilder.ComplexType<PrincipalId>();
-                    oDataBuilder.ComplexType<SchoolId>();
-
-                    options.Select().Filter().OrderBy().Expand().Count().SetMaxTop(100);
-
-                    options.AddRouteComponents("odata", oDataBuilder.GetEdmModel())
-                        .EnableQueryFeatures();
+                    opt.Select().Filter().OrderBy().Expand().Count().SetMaxTop(100);
+                    opt.AddRouteComponents("odata", EdmModelBuilder.GetEdmModel());
                 });
 
             builder.Services.AddApiVersioning(config =>
@@ -196,10 +183,10 @@ namespace DfE.DomainDrivenDesignTemplate.Api
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
-
-            ILogger<Program> logger = app.Services.GetRequiredService<ILogger<Program>>();
-            logger.LogInformation("Logger is working...");
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
 
             await app.RunAsync();
         }

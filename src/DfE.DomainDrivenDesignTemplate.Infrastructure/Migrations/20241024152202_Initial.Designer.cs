@@ -12,15 +12,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DfE.DomainDrivenDesignTemplate.Infrastructure.Migrations
 {
     [DbContext(typeof(SclContext))]
-    [Migration("20240927133922_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20241024152202_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.8")
+                .HasAnnotation("ProductVersion", "8.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -65,6 +65,11 @@ namespace DfE.DomainDrivenDesignTemplate.Infrastructure.Migrations
                     b.Property<DateTime>("LastRefresh")
                         .HasColumnType("datetime2")
                         .HasColumnName("LastRefresh");
+
+                    b.Property<int>("PrimitiveId")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("int")
+                        .HasComputedColumnSql("[Id]");
 
                     b.Property<int>("PrincipalId")
                         .HasColumnType("int");

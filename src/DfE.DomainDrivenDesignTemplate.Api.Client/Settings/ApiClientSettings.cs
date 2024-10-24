@@ -7,5 +7,11 @@ namespace DfE.DomainDrivenDesignTemplate.Api.Client.Settings
         public string? ClientSecret { get; set; }
         public string? Authority { get; set; }
         public string? Scope { get; set; }
+        public ODataSettings? OData { get; set; }
+    }
+
+    public class ODataSettings
+    {
+        public string? BaseUrl { get; set; }
     }
 }
