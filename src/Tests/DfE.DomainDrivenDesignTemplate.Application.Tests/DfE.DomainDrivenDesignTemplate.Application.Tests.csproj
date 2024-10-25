@@ -24,4 +24,10 @@
     <ProjectReference Include="..\DfE.DomainDrivenDesignTemplate.Tests.Common\DfE.DomainDrivenDesignTemplate.Tests.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="ExpectedSecurity.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

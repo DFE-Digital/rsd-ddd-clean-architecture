@@ -1,0 +1,24 @@
+{
+  "Endpoints": [
+    {
+      "Controller": "SchoolsController",
+      "Action": "GetPrincipalBySchoolAsync",
+      "ExpectedSecurity": "Authorize: Policy=API.Read"
+    },
+    {
+      "Controller": "SchoolsController",
+      "Action": "GetPrincipalsBySchoolsAsync",
+      "ExpectedSecurity": "Authorize: Policy=API.Read"
+    },
+    {
+      "Controller": "SchoolsController",
+      "Action": "CreateSchoolAsync",
+      "ExpectedSecurity": "Authorize: Policy=API.Write"
+    },
+    {
+      "Controller": "SchoolsController",
+      "Action": "CreateReportAsync",
+      "ExpectedSecurity": "AllowAnonymous"
+    }
+  ]
+}

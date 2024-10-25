@@ -72,6 +72,7 @@ namespace DfE.DomainDrivenDesignTemplate.Api.Controllers
         /// </summary>
         /// <param name="request">The request.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
+        [AllowAnonymous]
         [HttpPost("createReport")]
         [SwaggerResponse(200, "Task queued successfully.", typeof(bool))]
         [SwaggerResponse(400, "Invalid request data.")]
