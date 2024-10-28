@@ -17,7 +17,7 @@ namespace DfE.DomainDrivenDesignTemplate.Application.Tests.SecurityTests
 
         public static IEnumerable<object[]> GetEndpointTestData()
         {
-            var configFilePath = "ExpectedSecurity.json";
+            var configFilePath = "SecurityTests/ExpectedSecurity.json";
             return EndpointTestDataProvider.GetEndpointTestDataFromFile(typeof(Program).Assembly, configFilePath);
         }
     }
