@@ -12,7 +12,9 @@ namespace DfE.DomainDrivenDesignTemplate.Application.Tests.SecurityTests
         {
             var securityTests = new AuthorizationTester();
 
-            securityTests.ValidateEndpoint(typeof(Program).Assembly, controllerName, actionName, expectedSecurity);
+            var results = securityTests.ValidateEndpoint(typeof(Program).Assembly, controllerName, actionName, expectedSecurity);
+
+            Assert.Null(results.Message);
         }
 
         public static IEnumerable<object[]> GetEndpointTestData()

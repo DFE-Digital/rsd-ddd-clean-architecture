@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Net;
 using DfE.DomainDrivenDesignTemplate.Application.Common.Exceptions;
+using DfE.DomainDrivenDesignTemplate.Infrastructure.Security.Configurations;
 
 namespace DfE.DomainDrivenDesignTemplate.Api.Controllers
 {
@@ -24,7 +25,7 @@ namespace DfE.DomainDrivenDesignTemplate.Api.Controllers
         /// </summary>
         /// <param name="schoolName">The school name.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
-        [Authorize(Policy = "API.Read")]
+        [Authorize(Policy = PolicyNames.CanRead)]
         [HttpGet("{schoolName}/principal")]
         [SwaggerResponse(200, "A Person object representing the Principal.", typeof(Principal))]
         [SwaggerResponse(404, "School not found.")]
@@ -41,7 +42,7 @@ namespace DfE.DomainDrivenDesignTemplate.Api.Controllers
         /// </summary>
         /// <param name="request">The request.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
-        [Authorize(Policy = "API.Read")]
+        [Authorize(Policy = PolicyNames.CanRead)]
         [HttpPost("principals")]
         [SwaggerResponse(200, "A collection of Principal objects.", typeof(IEnumerable<Principal>))]
         [SwaggerResponse(400, "School names cannot be null or empty.")]
@@ -57,7 +58,7 @@ namespace DfE.DomainDrivenDesignTemplate.Api.Controllers
         /// </summary>
         /// <param name="request">The request.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
-        [Authorize(Policy = "API.Write")]
+        [Authorize(Policy = PolicyNames.CanReadWrite)]
         [HttpPost]
         [SwaggerResponse(201, "School created successfully.", typeof(SchoolId))]
         [SwaggerResponse(400, "Invalid request data.")]

@@ -1,3 +1,4 @@
+using DfE.DomainDrivenDesignTemplate.Infrastructure.Security.Configurations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
@@ -22,22 +23,40 @@ namespace DfE.DomainDrivenDesignTemplate.Infrastructure.Security.Authorization
                     .RequireAuthenticatedUser()
                     .Build();
 
-                var roles = configuration.GetSection("Authorization:Roles").Get<string[]>();
-                if (roles != null)
+                var policyConfigs = configuration.GetSection("Authorization:Policies").Get<List<PolicyConfig>>();
+                if (policyConfigs != null)
                 {
-                    foreach (var role in roles)
+                    foreach (var policyConfig in policyConfigs)
                     {
-                        options.AddPolicy(role, policy => policy.RequireRole(role));
-                    }
-                }
+                        options.AddPolicy(policyConfig.Name, policyBuilder =>
+                        {
+                            policyBuilder.RequireAuthenticatedUser();
 
-                var claims = configuration.GetSection("Authorization:Claims").Get<Dictionary<string, string>>();
-                if (claims != null)
-                {
-                    foreach (var claim in claims)
-                    {
-                        options.AddPolicy($"{claim.Key}", policy =>
-                            policy.RequireClaim(claim.Key, claim.Value));
+                            if (policyConfig.Roles.Any())
+                            {
+                                if (string.Equals(policyConfig.Operator, "AND", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    // Use AND logic: require each role individually
+                                    foreach (var role in policyConfig.Roles)
+                                    {
+                                        policyBuilder.RequireRole(role);
+                                    }
+                                }
+                                else
+                                {
+                                    // Use OR logic: require any of the roles
+                                    policyBuilder.RequireRole(policyConfig.Roles.ToArray());
+                                }
+                            }
+
+                            if (policyConfig.Claims != null && policyConfig.Claims.Any())
+                            {
+                                foreach (var claim in policyConfig.Claims)
+                                {
+                                    policyBuilder.RequireClaim(claim.Type, claim.Values.ToArray());
+                                }
+                            }
+                        });
                     }
                 }
             });

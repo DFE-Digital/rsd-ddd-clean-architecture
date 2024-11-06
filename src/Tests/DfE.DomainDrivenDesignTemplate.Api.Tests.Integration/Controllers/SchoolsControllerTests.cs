@@ -125,7 +125,7 @@ namespace DfE.DomainDrivenDesignTemplate.Api.Tests.Integration.Controllers
             ISchoolsClient schoolsClient)
         {
             // Arrange
-            factory.TestClaims = [new Claim(ClaimTypes.Role, "API.Write")];
+            factory.TestClaims = [new Claim(ClaimTypes.Role, "API.Write"), new Claim(ClaimTypes.Role, "API.Read")];
 
             // Act
             var result = await schoolsClient.CreateSchoolAsync(command);
