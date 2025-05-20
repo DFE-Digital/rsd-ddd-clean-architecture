@@ -13,6 +13,7 @@ using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
 using DfE.CoreLibs.Http.Middlewares.CorrelationId;
 using DfE.CoreLibs.Http.Interfaces;
+using TelemetryConfiguration = Microsoft.ApplicationInsights.Extensibility.TelemetryConfiguration;
 
 namespace DfE.DomainDrivenDesignTemplate.Api
 {
