@@ -8,21 +8,24 @@ namespace DfE.DomainDrivenDesignTemplate.Application.Schools.Commands.CreateRepo
     /// <summary>
     /// An example of enqueuing a background task
     /// </summary>
-    public record CreateReportCommand() : IRequest<bool>;
+    public record CreateReportCommand() : IRequest<string>;
 
-    public class CreateReportCommandHandler( IBackgroundServiceFactory backgroundServiceFactory)
-        : IRequestHandler<CreateReportCommand, bool>
+    public class CreateReportCommandHandler(IBackgroundServiceFactory backgroundServiceFactory)
+        : IRequestHandler<CreateReportCommand, string>
     {
-        public Task<bool> Handle(CreateReportCommand request, CancellationToken cancellationToken)
+        public async Task<string> Handle(CreateReportCommand request, CancellationToken cancellationToken)
         {
             var taskName = "Create_Report_Task1";
 
-            backgroundServiceFactory.EnqueueTask(
-                async () => await (new CreateReportExampleTask()).RunAsync(taskName),
-                result => new CreateReportExampleTaskCompletedEvent(taskName, result)
-                );
+            var report = await backgroundServiceFactory
+                .EnqueueTask<string, CreateReportExampleTaskCompletedEvent>(
+                    ct => new CreateReportExampleTask().RunAsync(taskName),
+                    resultValue => new CreateReportExampleTaskCompletedEvent(taskName, resultValue),
+                    cancellationToken
+                )
+                .ConfigureAwait(false);
 
-            return Task.FromResult(true);
+            return report;
         }
     }
 }
