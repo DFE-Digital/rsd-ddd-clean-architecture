@@ -34,6 +34,7 @@ jobs:
         with:
           secrets: github_token=${{ secrets.GITHUB_TOKEN }}
           load: true
+          build-args: CI=true
           cache-from: type=gha
           cache-to: type=gha
           target: ${{ matrix.stage }}
